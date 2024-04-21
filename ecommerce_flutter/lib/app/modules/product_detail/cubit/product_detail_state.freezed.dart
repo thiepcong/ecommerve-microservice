@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProductDetailState {
   bool get isLoading => throw _privateConstructorUsedError;
+  int get quantity => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
 
@@ -31,7 +32,7 @@ abstract class $ProductDetailStateCopyWith<$Res> {
           ProductDetailState value, $Res Function(ProductDetailState) then) =
       _$ProductDetailStateCopyWithImpl<$Res, ProductDetailState>;
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call({bool isLoading, int quantity, String? message, Error? error});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$ProductDetailStateCopyWithImpl<$Res, $Val extends ProductDetailState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? quantity = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -56,6 +58,10 @@ class _$ProductDetailStateCopyWithImpl<$Res, $Val extends ProductDetailState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -76,7 +82,7 @@ abstract class _$$ProductDetailStateImplCopyWith<$Res>
       __$$ProductDetailStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call({bool isLoading, int quantity, String? message, Error? error});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? quantity = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -99,6 +106,10 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -115,12 +126,15 @@ class __$$ProductDetailStateImplCopyWithImpl<$Res>
 
 class _$ProductDetailStateImpl extends _ProductDetailState {
   const _$ProductDetailStateImpl(
-      {this.isLoading = false, this.message, this.error})
+      {this.isLoading = false, this.quantity = 1, this.message, this.error})
       : super._();
 
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final int quantity;
   @override
   final String? message;
   @override
@@ -128,7 +142,7 @@ class _$ProductDetailStateImpl extends _ProductDetailState {
 
   @override
   String toString() {
-    return 'ProductDetailState(isLoading: $isLoading, message: $message, error: $error)';
+    return 'ProductDetailState(isLoading: $isLoading, quantity: $quantity, message: $message, error: $error)';
   }
 
   @override
@@ -138,12 +152,15 @@ class _$ProductDetailStateImpl extends _ProductDetailState {
             other is _$ProductDetailStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, message, error);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, quantity, message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -156,12 +173,15 @@ class _$ProductDetailStateImpl extends _ProductDetailState {
 abstract class _ProductDetailState extends ProductDetailState {
   const factory _ProductDetailState(
       {final bool isLoading,
+      final int quantity,
       final String? message,
       final Error? error}) = _$ProductDetailStateImpl;
   const _ProductDetailState._() : super._();
 
   @override
   bool get isLoading;
+  @override
+  int get quantity;
   @override
   String? get message;
   @override

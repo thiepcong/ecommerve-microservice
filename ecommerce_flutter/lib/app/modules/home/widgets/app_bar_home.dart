@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ecommerce_flutter/app/main_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_network/image_network.dart';
@@ -90,24 +92,24 @@ class AppBarHome extends StatelessWidget {
                   value: 2,
                   child: CartPopupItem(),
                 ),
-                const PopupMenuItem(
-                  // height: 30,
-                  padding: EdgeInsets.zero,
-                  value: 2,
-                  child: CartPopupItem(),
-                ),
-                const PopupMenuItem(
-                  // height: 30,
-                  padding: EdgeInsets.zero,
-                  value: 2,
-                  child: CartPopupItem(),
-                ),
-                const PopupMenuItem(
-                  // height: 30,
-                  padding: EdgeInsets.zero,
-                  value: 2,
-                  child: CartPopupItem(),
-                ),
+                // const PopupMenuItem(
+                //   // height: 30,
+                //   padding: EdgeInsets.zero,
+                //   value: 2,
+                //   child: CartPopupItem(),
+                // ),
+                // const PopupMenuItem(
+                //   // height: 30,
+                //   padding: EdgeInsets.zero,
+                //   value: 2,
+                //   child: CartPopupItem(),
+                // ),
+                // const PopupMenuItem(
+                //   // height: 30,
+                //   padding: EdgeInsets.zero,
+                //   value: 2,
+                //   child: CartPopupItem(),
+                // ),
                 PopupMenuItem(
                   // height: 30,
                   padding: EdgeInsets.zero,
@@ -123,7 +125,7 @@ class AppBarHome extends StatelessWidget {
                               .copyWith(color: AppColors.colorFFC5C5C5),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () => context.pushRoute(const CartViewRoute()),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
@@ -191,7 +193,7 @@ class CartPopupItem extends StatelessWidget {
           )),
           const SizedBox(width: 8),
           Text(
-            "100.000 VNĐ",
+            "100.000 đ",
             style: TextStyles.regularBlackS14
                 .copyWith(color: AppColors.colorFFf7472f),
           )

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ecommerce_flutter/app/main_router.dart';
 import 'package:flutter/material.dart';
 
 import '../../values/app_colors.dart';
@@ -25,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leadingWidth: 120,
+      leadingWidth: 140,
       leading: isLeading
           ? Center(
               child: Row(
@@ -38,11 +39,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: AppColors.colorFFFFFFFF,
                       ),
                     ),
-                  Text(
-                    "Thiep's Shop",
-                    style: TextStyles.boldWhiteS20
-                        .copyWith(color: AppColors.colorFF9BD7FF, fontSize: 18),
-                    textAlign: TextAlign.center,
+                  TextButton(
+                    onPressed: () => context.router.pushAndPopUntil(
+                      const HomeViewRoute(),
+                      predicate: (_) => false,
+                    ),
+                    child: Text(
+                      "Thiep's Shop",
+                      style: TextStyles.boldWhiteS20.copyWith(
+                          color: AppColors.colorFF9BD7FF, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),

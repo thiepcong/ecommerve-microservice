@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CartState {
   bool get isLoading => throw _privateConstructorUsedError;
+  List<CartItemModel> get carts => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
 
@@ -30,7 +31,11 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call(
+      {bool isLoading,
+      List<CartItemModel> carts,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -47,6 +52,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? carts = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -55,6 +61,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      carts: null == carts
+          ? _value.carts
+          : carts // ignore: cast_nullable_to_non_nullable
+              as List<CartItemModel>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -75,7 +85,11 @@ abstract class _$$CartStateImplCopyWith<$Res>
       __$$CartStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call(
+      {bool isLoading,
+      List<CartItemModel> carts,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -90,6 +104,7 @@ class __$$CartStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? carts = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -98,6 +113,10 @@ class __$$CartStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      carts: null == carts
+          ? _value._carts
+          : carts // ignore: cast_nullable_to_non_nullable
+              as List<CartItemModel>,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -113,12 +132,26 @@ class __$$CartStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CartStateImpl extends _CartState {
-  const _$CartStateImpl({this.isLoading = false, this.message, this.error})
-      : super._();
+  const _$CartStateImpl(
+      {this.isLoading = false,
+      final List<CartItemModel> carts = const [],
+      this.message,
+      this.error})
+      : _carts = carts,
+        super._();
 
   @override
   @JsonKey()
   final bool isLoading;
+  final List<CartItemModel> _carts;
+  @override
+  @JsonKey()
+  List<CartItemModel> get carts {
+    if (_carts is EqualUnmodifiableListView) return _carts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_carts);
+  }
+
   @override
   final String? message;
   @override
@@ -126,7 +159,7 @@ class _$CartStateImpl extends _CartState {
 
   @override
   String toString() {
-    return 'CartState(isLoading: $isLoading, message: $message, error: $error)';
+    return 'CartState(isLoading: $isLoading, carts: $carts, message: $message, error: $error)';
   }
 
   @override
@@ -136,12 +169,14 @@ class _$CartStateImpl extends _CartState {
             other is _$CartStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            const DeepCollectionEquality().equals(other._carts, _carts) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, message, error);
+  int get hashCode => Object.hash(runtimeType, isLoading,
+      const DeepCollectionEquality().hash(_carts), message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -153,12 +188,15 @@ class _$CartStateImpl extends _CartState {
 abstract class _CartState extends CartState {
   const factory _CartState(
       {final bool isLoading,
+      final List<CartItemModel> carts,
       final String? message,
       final Error? error}) = _$CartStateImpl;
   const _CartState._() : super._();
 
   @override
   bool get isLoading;
+  @override
+  List<CartItemModel> get carts;
   @override
   String? get message;
   @override

@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ecommerce_flutter/app/main_router.dart';
 import 'package:flutter/material.dart';
 import 'package:image_network/image_network.dart';
 
@@ -10,14 +12,14 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => context.pushRoute(const ProductDetailViewRoute()),
       child: Container(
         decoration: const BoxDecoration(
           color: AppColors.colorFFFFFFFF,
         ),
         child: Column(
           children: [
-            ImageNetwork(
+            const ImageNetwork(
               image:
                   "https://dictionary.cambridge.org/images/thumb/butter_noun_001_02096.jpg?version=5.0.390",
               height: 150,
@@ -30,23 +32,20 @@ class ProductItem extends StatelessWidget {
               fitAndroidIos: BoxFit.cover,
               fitWeb: BoxFitWeb.cover,
               // borderRadius: BorderRadius.circular(4),
-              onLoading: const CircularProgressIndicator(
+              onLoading: CircularProgressIndicator(
                 color: Colors.indigoAccent,
               ),
-              onError: const Icon(
+              onError: Icon(
                 Icons.error,
                 color: Colors.red,
               ),
-              onTap: () {
-                debugPrint("©gabriel_patrick_souza");
-              },
             ),
             const Text(
               "label",
               style: TextStyles.regularBlackS16,
             ),
             Text(
-              "100.000 VNĐ",
+              "100.000 đ",
               style: TextStyles.regularBlackS16
                   .copyWith(color: AppColors.colorFFf7472f),
             ),

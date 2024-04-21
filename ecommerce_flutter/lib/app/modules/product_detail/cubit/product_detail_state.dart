@@ -8,6 +8,7 @@ class ProductDetailState with _$ProductDetailState {
 
   const factory ProductDetailState({
     @Default(false) bool isLoading,
+    @Default(1) int quantity,
     String? message,
     Error? error,
   }) = _ProductDetailState;
