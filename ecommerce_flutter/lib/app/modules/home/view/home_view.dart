@@ -7,6 +7,7 @@ import '../../../core/values/text_styles.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
+import '../repository/home_repository.dart';
 import '../widgets/app_bar_home.dart';
 import '../widgets/product_item.dart';
 import '../widgets/tooltip_shape.dart';
@@ -25,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
       color: AppColors.colorFFFFFFFF,
       title: 'Trang chủ',
       child: BlocProvider(
-        create: (_) => HomeCubit(),
+        create: (_) => HomeCubit(context.read<HomeRepository>()),
         child: _buildPage(context),
       ),
     );
@@ -46,6 +47,7 @@ class _HomeViewState extends State<HomeView> {
       ],
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
+          final cubit = context.read<HomeCubit>();
           return Scaffold(
             appBar: CustomAppBar(
               label: 'Trang chủ',
@@ -57,18 +59,20 @@ class _HomeViewState extends State<HomeView> {
                   padding: EdgeInsets.zero,
                   offset: const Offset(0, 50),
                   color: AppColors.colorFFFFFFFF,
-                  icon: const Row(
+                  icon: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person,
                         color: AppColors.colorFFFFFFFF,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
-                        "Thiệp",
+                        state.user != null
+                            ? "${state.user!.firstName} ${state.user!.lastName}"
+                            : "",
                         style: TextStyles.regularWhiteS16,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                     ],
                   ),
                   onSelected: (value) async {
@@ -116,26 +120,37 @@ class _HomeViewState extends State<HomeView> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Column(
+              child: Stack(
                 children: [
-                  const AppBarHome(),
-                  // Expanded(child: Size)
-                  Expanded(
-                    child: GridView.builder(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 24, horizontal: 32),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 6,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
+                  Column(
+                    children: [
+                      AppBarHome(onSearch: (e) => cubit.search(e)),
+                      // Expanded(child: Size)
+                      Expanded(
+                        child: GridView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 24, horizontal: 32),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 6,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            return ProductItem(item: state.products[index]);
+                          },
+                        ),
                       ),
-                      itemCount: 18,
-                      itemBuilder: (context, index) {
-                        return const ProductItem();
-                      },
-                    ),
+                    ],
                   ),
+                  state.isLoading
+                      ? Container(
+                          color: AppColors.colorFF000000.withOpacity(0.5),
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(),
+                        )
+                      : const SizedBox.shrink()
                 ],
               ),
             ),

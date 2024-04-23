@@ -36,9 +36,13 @@ class _$MainRouter extends RootStackRouter {
       );
     },
     ProductDetailViewRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductDetailViewRouteArgs>();
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const ProductDetailView(),
+        child: ProductDetailView(
+          key: args.key,
+          item: args.item,
+        ),
       );
     },
     CartViewRoute.name: (routeData) {
@@ -128,14 +132,36 @@ class RegisterViewRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ProductDetailView]
-class ProductDetailViewRoute extends PageRouteInfo<void> {
-  const ProductDetailViewRoute()
-      : super(
+class ProductDetailViewRoute extends PageRouteInfo<ProductDetailViewRouteArgs> {
+  ProductDetailViewRoute({
+    Key? key,
+    required Product item,
+  }) : super(
           ProductDetailViewRoute.name,
           path: 'product_detail',
+          args: ProductDetailViewRouteArgs(
+            key: key,
+            item: item,
+          ),
         );
 
   static const String name = 'ProductDetailViewRoute';
+}
+
+class ProductDetailViewRouteArgs {
+  const ProductDetailViewRouteArgs({
+    this.key,
+    required this.item,
+  });
+
+  final Key? key;
+
+  final Product item;
+
+  @override
+  String toString() {
+    return 'ProductDetailViewRouteArgs{key: $key, item: $item}';
+  }
 }
 
 /// generated route for

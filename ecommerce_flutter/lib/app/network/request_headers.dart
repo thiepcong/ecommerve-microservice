@@ -1,3 +1,4 @@
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,28 +14,30 @@ class RequestHeaderInterceptor extends InterceptorsWrapper {
   Future<Map<String, String>> getCustomHeaders() async {
     final pre = await SharedPreferences.getInstance();
     final userId = pre.getInt("userId");
-    final filePath = pre.getString("filePath");
-    final quizId = pre.getInt("quizId");
     var customHeaders = {
       'content-type': 'application/json',
       'Accept': "application/json"
     };
     if (userId != null) {
       customHeaders.addAll({
-        'userId': "$userId",
-      });
-    }
-    if (filePath != null) {
-      customHeaders.addAll({
-        'filePath': filePath,
-      });
-    }
-    if (quizId != null) {
-      customHeaders.addAll({
-        'quizId': quizId.toString(),
+        'Authorization': "Bearer ${token(userId)}",
       });
     }
 
     return customHeaders;
+  }
+
+  String token(int userId) {
+    final jwt = JWT(
+      // Payload
+      {
+        "user_id": userId,
+      },
+      issuer: 'https://github.com/jonasroussel/dart_jsonwebtoken',
+    );
+
+// Sign it (default with HS256 algorithm)
+    final token = jwt.sign(SecretKey('@Helios'));
+    return token;
   }
 }

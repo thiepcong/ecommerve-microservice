@@ -1,7 +1,9 @@
+import 'package:ecommerce_flutter/app/core/extension/double_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_network/image_network.dart';
 
+import '../../../core/models/product.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
@@ -13,7 +15,9 @@ import '../cubit/product_detail_state.dart';
 import '../widgets/quantity_item.dart';
 
 class ProductDetailView extends StatefulWidget {
-  const ProductDetailView({super.key});
+  const ProductDetailView({super.key, required this.item});
+
+  final Product item;
 
   @override
   State<ProductDetailView> createState() => _ProductDetailViewState();
@@ -112,9 +116,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   child: Row(
                     children: [
                       const SizedBox(width: 24),
-                      const ImageNetwork(
-                        image:
-                            "https://dictionary.cambridge.org/images/thumb/butter_noun_001_02096.jpg?version=5.0.390",
+                      ImageNetwork(
+                        image: "http://127.0.0.1:4002${widget.item.image}",
                         height: 400,
                         width: 400,
                         duration: 1500,
@@ -125,10 +128,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                         fitAndroidIos: BoxFit.cover,
                         fitWeb: BoxFitWeb.cover,
                         // borderRadius: BorderRadius.circular(4),
-                        onLoading: CircularProgressIndicator(
+                        onLoading: const CircularProgressIndicator(
                           color: Colors.indigoAccent,
                         ),
-                        onError: Icon(
+                        onError: const Icon(
                           Icons.error,
                           color: Colors.red,
                         ),
@@ -140,12 +143,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "label",
+                              widget.item.title,
                               style: TextStyles.mediumBlackS42
                                   .copyWith(fontSize: 36),
                             ),
                             Text(
-                              "100.000 đ",
+                              "${widget.item.price.formatCurrency()} đ",
                               style: TextStyles.mediumBlackS42
                                   .copyWith(color: AppColors.colorFFf78f2b),
                             ),

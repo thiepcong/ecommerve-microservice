@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$v8rda#=q&9%wl+!qme)af38$axe=3saqjz%kgw%67ui1oe@o0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 PORT = 4004
 
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,7 +133,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOW_CREDENTIALS = True # to accept cookies via ajax request
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000' # the domain for front-end app(you can add more than 1)
-]
+# CORS_ALLOW_CREDENTIALS = True # to accept cookies via ajax request
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000' # the domain for front-end app(you can add more than 1)
+# ]
+CORS_ORIGIN_ALLOW_ALL = True  

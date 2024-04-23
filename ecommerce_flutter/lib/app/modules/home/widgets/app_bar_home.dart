@@ -7,8 +7,24 @@ import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 import 'tooltip_shape.dart';
 
-class AppBarHome extends StatelessWidget {
-  const AppBarHome({super.key});
+class AppBarHome extends StatefulWidget {
+  const AppBarHome({super.key, this.onSearch});
+
+  final void Function(String)? onSearch;
+
+  @override
+  State<AppBarHome> createState() => _AppBarHomeState();
+}
+
+class _AppBarHomeState extends State<AppBarHome> {
+  final _searchController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +38,47 @@ class AppBarHome extends StatelessWidget {
         children: [
           const SizedBox(width: 240),
           Expanded(
-            child: TextFormField(
-              cursorColor: AppColors.colorFF000000,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(20),
-              ],
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: AppColors.colorFFFFFFFF,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(2)),
-                  borderSide: BorderSide.none,
-                ),
-                hintText: 'Nhập để tìm kiếm...',
-                suffixIcon: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                    decoration: const BoxDecoration(
-                      color: AppColors.colorFFf7472f,
-                      borderRadius: BorderRadius.all(Radius.circular(2)),
-                    ),
-                    child: const Icon(
-                      Icons.search,
-                      color: AppColors.colorFFFFFFFF,
+            child: Form(
+              key: _formKey,
+              child: TextFormField(
+                controller: _searchController,
+                cursorColor: AppColors.colorFF000000,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(20),
+                ],
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Vui lòng nhập từ khoá để tìm kiếm!';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.colorFFFFFFFF,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                    borderSide: BorderSide.none,
+                  ),
+                  hintText: 'Nhập để tìm kiếm...',
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        widget.onSearch?.call(_searchController.text);
+                      }
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 8),
+                      decoration: const BoxDecoration(
+                        color: AppColors.colorFFf7472f,
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                      ),
+                      child: const Icon(
+                        Icons.search,
+                        color: AppColors.colorFFFFFFFF,
+                      ),
                     ),
                   ),
                 ),

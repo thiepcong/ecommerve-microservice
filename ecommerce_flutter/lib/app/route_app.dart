@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/values/app_theme.dart';
 import 'main_router.dart';
+import 'modules/home/api/home_api.dart';
+import 'modules/home/repository/home_repository.dart';
 import 'modules/login/api/login_api.dart';
 import 'modules/login/repository/login_repository.dart';
 
@@ -31,6 +33,9 @@ class _RouteAppState extends State<RouteApp> {
       providers: [
         RepositoryProvider<LoginRepository>(
           create: (context) => LoginRepository(LoginApi()),
+        ),
+        RepositoryProvider<HomeRepository>(
+          create: (context) => HomeRepository(HomeApi()),
         ),
       ],
       child: MaterialApp.router(

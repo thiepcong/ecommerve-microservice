@@ -18,13 +18,13 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -105,14 +105,14 @@ class _LoginViewState extends State<LoginView> {
                             SizedBox(
                               width: double.infinity,
                               child: TextFormField(
-                                controller: _usernameController,
+                                controller: _emailController,
                                 decoration: const InputDecoration(
                                   labelText: 'Tên người dùng',
                                   border: OutlineInputBorder(),
                                 ),
                                 onFieldSubmitted: (e) {
                                   if (_formKey.currentState!.validate()) {
-                                    cubit.login(_usernameController.text,
+                                    cubit.login(_emailController.text,
                                         _passwordController.text);
                                   }
                                 },
@@ -136,9 +136,8 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                                 onFieldSubmitted: (e) {
                                   if (_formKey.currentState!.validate()) {
-                                    // cubit.login(_usernameController.text,
-                                    //     _passwordController.text);
-                                    context.pushRoute(const HomeViewRoute());
+                                    cubit.login(_emailController.text,
+                                        _passwordController.text);
                                   }
                                 },
                                 validator: (value) {
@@ -153,9 +152,8 @@ class _LoginViewState extends State<LoginView> {
                             ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  // cubit.login(_usernameController.text,
-                                  //     _passwordController.text);
-                                  context.pushRoute(const HomeViewRoute());
+                                  cubit.login(_emailController.text,
+                                      _passwordController.text);
                                 }
                               },
                               child: const Text('Login'),

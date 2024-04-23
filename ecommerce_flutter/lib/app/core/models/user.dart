@@ -1,19 +1,35 @@
 class User {
   final int id;
-  final String username;
-  final String name;
+  final String firstName;
+  final String lastName;
+  final String phoneNumber;
+  final String email;
 
   User({
     required this.id,
-    required this.username,
-    required this.name,
+    required this.firstName,
+    required this.lastName,
+    required this.phoneNumber,
+    required this.email,
   });
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone_number': phoneNumber,
+      'email': email,
+    };
+  }
 
   factory User.fromJson(Map<String, dynamic> map) {
     return User(
       id: map['id'] as int,
-      username: map['username'] as String,
-      name: map['name'] as String,
+      firstName: map['first_name'] as String,
+      lastName: map['last_name'] as String,
+      phoneNumber: map['phone_number'] as String,
+      email: map['email'] as String,
     );
   }
 }

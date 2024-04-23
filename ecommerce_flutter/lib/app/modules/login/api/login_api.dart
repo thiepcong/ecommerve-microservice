@@ -4,11 +4,11 @@ import '../../../core/values/api_url_constant.dart';
 
 class LoginApi extends BaseRemoteSource {
   Future<User> login({
-    required String usename,
+    required String email,
     required String password,
   }) async {
     final request = dioClient.post(ApiUrlConstants.login, data: {
-      "username": usename,
+      "email": email,
       "password": password,
     });
     try {
@@ -20,14 +20,18 @@ class LoginApi extends BaseRemoteSource {
   }
 
   Future<User> register({
-    required String name,
-    required String usename,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String email,
     required String password,
   }) async {
     final request = dioClient.post(ApiUrlConstants.register, data: {
-      "username": usename,
+      "first_name": firstName,
+      "last_name": lastName,
+      "phone_number": phoneNumber,
+      "email": email,
       "password": password,
-      "name": name,
     });
     try {
       return callApiWithErrorParser(request)

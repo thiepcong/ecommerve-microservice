@@ -5,21 +5,22 @@ class LoginRepository {
   final LoginApi _api;
   LoginRepository(this._api);
 
-  Future<User> login({
-    required String usename,
-    required String password,
-  }) {
-    return _api.login(usename: usename, password: password);
+  Future<User> login({required String email, required String password}) {
+    return _api.login(email: email, password: password);
   }
 
   Future<User> register({
-    required String name,
-    required String usename,
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String email,
     required String password,
   }) async {
     return _api.register(
-      name: name,
-      usename: usename,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
       password: password,
     );
   }

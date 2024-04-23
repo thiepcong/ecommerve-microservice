@@ -33,7 +33,8 @@ Exception handleDioError(DioException dioError) {
       return AppException(message: "Connection timeout with API server");
     case DioExceptionType.badResponse:
       return BadRequestException(
-          message: dioError.response?.data["message"] ?? dioError.message,
+          message:
+              dioError.response?.data?.toString() ?? dioError.message ?? "",
           httpCode: dioError.response?.statusCode ?? -1,
           status: dioError.response?.statusMessage ?? "Bad Request");
     case DioExceptionType.connectionError:

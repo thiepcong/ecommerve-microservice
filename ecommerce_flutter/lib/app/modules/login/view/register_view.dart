@@ -18,19 +18,20 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordAgainController =
-      TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _usernameController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
-    _passwordAgainController.dispose();
     super.dispose();
   }
 
@@ -111,22 +112,25 @@ class _RegisterViewState extends State<RegisterView> {
                               SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
-                                  controller: _nameController,
+                                  controller: _firstNameController,
                                   decoration: const InputDecoration(
-                                    labelText: 'Tên',
+                                    labelText: 'Họ',
                                     border: OutlineInputBorder(),
                                   ),
                                   onFieldSubmitted: (e) {
                                     if (_formKey.currentState!.validate()) {
                                       cubit.register(
-                                          _nameController.text,
-                                          _usernameController.text,
-                                          _passwordController.text);
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
                                     }
                                   },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
-                                      return 'Vui lòng nhập tên của bạn!';
+                                      return 'Vui lòng nhập họ của bạn!';
                                     }
                                     return null;
                                   },
@@ -136,23 +140,83 @@ class _RegisterViewState extends State<RegisterView> {
                               SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
-                                  controller: _usernameController,
+                                  controller: _lastNameController,
                                   decoration: const InputDecoration(
-                                    labelText: 'Tên người dùng',
+                                    labelText: 'Tên',
                                     border: OutlineInputBorder(),
                                   ),
                                   onFieldSubmitted: (e) {
                                     if (_formKey.currentState!.validate()) {
                                       cubit.register(
-                                          _nameController.text,
-                                          _usernameController.text,
-                                          _passwordController.text);
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
                                     }
                                   },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập tên người dùng!';
                                     }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _phoneController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Số điện thoại',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  onFieldSubmitted: (e) {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.register(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập tên người dùng!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Email',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  onFieldSubmitted: (e) {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.register(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập mật khẩu!';
+                                    }
+
                                     return null;
                                   },
                                 ),
@@ -170,45 +234,17 @@ class _RegisterViewState extends State<RegisterView> {
                                   onFieldSubmitted: (e) {
                                     if (_formKey.currentState!.validate()) {
                                       cubit.register(
-                                          _nameController.text,
-                                          _usernameController.text,
-                                          _passwordController.text);
-                                    }
-                                  },
-                                  validator: (value) {
-                                    if (value == null || value.trim().isEmpty) {
-                                      return 'Vui lòng nhập lại mật khẩu!';
-                                    }
-
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              SizedBox(
-                                width: double.infinity,
-                                child: TextFormField(
-                                  controller: _passwordAgainController,
-                                  obscureText: true,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Nhập lại mật khẩu',
-                                    border: OutlineInputBorder(),
-                                  ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                          _nameController.text,
-                                          _usernameController.text,
-                                          _passwordController.text);
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
                                     }
                                   },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập mật khẩu!';
-                                    }
-                                    if (value !=
-                                        _passwordAgainController.text) {
-                                      return 'Mật khẩu không trùng khớp';
                                     }
                                     return null;
                                   },
@@ -219,9 +255,12 @@ class _RegisterViewState extends State<RegisterView> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     cubit.register(
-                                        _nameController.text,
-                                        _usernameController.text,
-                                        _passwordController.text);
+                                      _firstNameController.text,
+                                      _lastNameController.text,
+                                      _phoneController.text,
+                                      _emailController.text,
+                                      _passwordController.text,
+                                    );
                                   }
                                 },
                                 child: const Text('Register'),
