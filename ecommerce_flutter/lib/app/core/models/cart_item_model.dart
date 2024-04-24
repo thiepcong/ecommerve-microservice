@@ -4,17 +4,20 @@ class CartItemModel {
   final int quantity;
   final bool isChoose;
   final Product product;
+  final double total;
 
   CartItemModel({
     required this.quantity,
     required this.product,
     this.isChoose = false,
+    this.total = 0,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'quantity': quantity,
       'product': product.toJson(),
+      'total': total,
     };
   }
 
@@ -22,6 +25,7 @@ class CartItemModel {
     return CartItemModel(
       quantity: map['quantity'] as int,
       product: Product.fromJson(map['product'] as Map<String, dynamic>),
+      total: map['total'] as double,
     );
   }
 

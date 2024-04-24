@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ecommerce_flutter/app/main_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
       color: AppColors.colorFFFFFFFF,
       title: 'Trang chủ',
       child: BlocProvider(
-        create: (_) => HomeCubit(context.read<HomeRepository>()),
+        create: (_) => HomeCubit(context.read<HomeRepository>())..init(),
         child: _buildPage(context),
       ),
     );
@@ -78,8 +80,13 @@ class _HomeViewState extends State<HomeView> {
                   onSelected: (value) async {
                     switch (value) {
                       case 1:
+                        context.pushRoute(const UserInfoViewRoute());
                         break;
                       case 2:
+                        context.router.pushAndPopUntil(
+                          const LoginViewRoute(),
+                          predicate: (_) => false,
+                        );
                         break;
                       default:
                         break;
@@ -88,7 +95,6 @@ class _HomeViewState extends State<HomeView> {
                   itemBuilder: (context) {
                     return <PopupMenuEntry>[
                       const PopupMenuItem(
-                        // height: 30,
                         padding: EdgeInsets.zero,
                         value: 1,
                         child: Padding(
@@ -97,7 +103,6 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       const PopupMenuItem(
-                        // height: 30,
                         padding: EdgeInsets.zero,
                         value: 2,
                         child: Padding(
@@ -127,20 +132,28 @@ class _HomeViewState extends State<HomeView> {
                       AppBarHome(onSearch: (e) => cubit.search(e)),
                       // Expanded(child: Size)
                       Expanded(
-                        child: GridView.builder(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 24, horizontal: 32),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 6,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                          itemCount: state.products.length,
-                          itemBuilder: (context, index) {
-                            return ProductItem(item: state.products[index]);
-                          },
-                        ),
+                        child: state.products.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  "Không có sản phẩm nào",
+                                  style: TextStyles.mediumBlackS20,
+                                ),
+                              )
+                            : GridView.builder(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 24, horizontal: 32),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 6,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemCount: state.products.length,
+                                itemBuilder: (context, index) {
+                                  return ProductItem(
+                                      item: state.products[index]);
+                                },
+                              ),
                       ),
                     ],
                   ),

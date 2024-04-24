@@ -4,4 +4,4 @@ from .models import Mobile
 class MobileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mobile
-        fields = ['mobile_id', 'title',  'quantity', 'des','price','sale']
+        fields = ['mobile_id', 'title',  'quantity', 'des','price','sale','image']

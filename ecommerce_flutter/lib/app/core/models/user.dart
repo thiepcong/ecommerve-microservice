@@ -32,4 +32,30 @@ class User {
       email: map['email'] as String,
     );
   }
+
+  User copyWith({
+    int? id,
+    String? firstName,
+    String? lastName,
+    String? phoneNumber,
+    String? email,
+  }) {
+    return User(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+    );
+  }
+
+  User copyWithMap({required Map<String, dynamic> map}) {
+    return User(
+      id: id,
+      firstName: map['first_name'] as String,
+      lastName: map['last_name'] as String,
+      phoneNumber: map['phone_number'] as String,
+      email: email,
+    );
+  }
 }

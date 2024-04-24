@@ -43,7 +43,8 @@ class CartItem extends StatelessWidget {
             child: Row(
               children: [
                 ImageNetwork(
-                  image: item.product.image,
+                  image:
+                      "http://127.0.0.1:${item.product.type == 'book' ? 4002 : 4005}${item.product.image}",
                   height: 100,
                   width: 100,
                   duration: 1500,
@@ -91,6 +92,7 @@ class CartItem extends StatelessWidget {
                     num: item.quantity,
                     onAdd: onAdd,
                     onSub: onSub,
+                    maxQuantity: item.product.quantity,
                   ),
                 ),
                 Expanded(
@@ -123,12 +125,18 @@ class CartItem extends StatelessWidget {
 }
 
 class QuantityCartItem extends StatelessWidget {
-  const QuantityCartItem(
-      {super.key, required this.num, this.onAdd, this.onSub});
+  const QuantityCartItem({
+    super.key,
+    required this.num,
+    this.onAdd,
+    this.onSub,
+    required this.maxQuantity,
+  });
 
   final int num;
   final VoidCallback? onAdd;
   final VoidCallback? onSub;
+  final int maxQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +177,7 @@ class QuantityCartItem extends StatelessWidget {
             color: AppColors.colorFF475467,
           ),
           InkWell(
-            onTap: () => onAdd?.call(),
+            onTap: num < maxQuantity ? () => onAdd?.call() : null,
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: Text(

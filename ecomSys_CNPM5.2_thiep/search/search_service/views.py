@@ -20,6 +20,7 @@ class SearchView(APIView):
 
         result = []
         result += self.search_book(key)
+        result += self.search_mobile(key)
 
         return Response(result, status=status.HTTP_200_OK)
         
@@ -29,6 +30,13 @@ class SearchView(APIView):
         book_response = requests.get(book_service_url)
         if book_response.status_code == 200:
             return book_response.json()
+        return []
+    def search_mobile(self, key):
+        mobile_service_url = "http://localhost:4005/api/ecomSys/mobile/search/{}/".format(key)
+
+        mobile_response = requests.get(mobile_service_url)
+        if mobile_response.status_code == 200:
+            return mobile_response.json()
         return []
             
 class ShowSearchView(APIView):

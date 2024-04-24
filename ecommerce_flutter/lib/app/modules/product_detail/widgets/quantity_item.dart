@@ -8,11 +8,13 @@ class QuantityItem extends StatelessWidget {
     this.onSub,
     this.onAdd,
     required this.quantity,
+    required this.maxQuantity,
   });
 
   final VoidCallback? onSub;
   final VoidCallback? onAdd;
   final int quantity;
+  final int maxQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class QuantityItem extends StatelessWidget {
             QuantityButtonItem(
               onTap: () => onAdd?.call(),
               number: '+',
-              canTap: quantity < 10,
+              canTap: quantity < maxQuantity,
             ),
           ],
         )),

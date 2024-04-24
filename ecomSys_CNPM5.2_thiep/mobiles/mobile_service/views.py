@@ -24,7 +24,7 @@ class AddMobileView(APIView):
     
 class SearchMobileListView(APIView):
     def get(self, request, key):
-        mobiles = Mobile.objects.filter(Q(title__icontains=key) | Q(author__icontains=key), is_active__in=[True])
+        mobiles = Mobile.objects.filter(Q(title__icontains=key))
         serializer = MobileSerializer(mobiles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

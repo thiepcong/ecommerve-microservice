@@ -63,6 +63,7 @@ class _AppBarHomeState extends State<AppBarHome> {
                   hintText: 'Nhập để tìm kiếm...',
                   suffixIcon: InkWell(
                     onTap: () {
+                      FocusScope.of(context).unfocus();
                       if (_formKey.currentState?.validate() ?? false) {
                         widget.onSearch?.call(_searchController.text);
                       }

@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../core/models/user.dart';
+
 part 'user_info_state.freezed.dart';
 
 @freezed
@@ -8,6 +10,7 @@ class UserInfoState with _$UserInfoState {
 
   const factory UserInfoState({
     @Default(false) bool isLoading,
+    User? user,
     String? message,
     Error? error,
   }) = _UserInfoState;

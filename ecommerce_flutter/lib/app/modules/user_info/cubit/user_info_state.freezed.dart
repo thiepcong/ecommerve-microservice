@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserInfoState {
   bool get isLoading => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
 
@@ -31,7 +32,7 @@ abstract class $UserInfoStateCopyWith<$Res> {
           UserInfoState value, $Res Function(UserInfoState) then) =
       _$UserInfoStateCopyWithImpl<$Res, UserInfoState>;
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call({bool isLoading, User? user, String? message, Error? error});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -56,6 +58,10 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -76,7 +82,7 @@ abstract class _$$UserInfoStateImplCopyWith<$Res>
       __$$UserInfoStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call({bool isLoading, User? user, String? message, Error? error});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -99,6 +106,10 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -114,12 +125,15 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UserInfoStateImpl extends _UserInfoState {
-  const _$UserInfoStateImpl({this.isLoading = false, this.message, this.error})
+  const _$UserInfoStateImpl(
+      {this.isLoading = false, this.user, this.message, this.error})
       : super._();
 
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  final User? user;
   @override
   final String? message;
   @override
@@ -127,7 +141,7 @@ class _$UserInfoStateImpl extends _UserInfoState {
 
   @override
   String toString() {
-    return 'UserInfoState(isLoading: $isLoading, message: $message, error: $error)';
+    return 'UserInfoState(isLoading: $isLoading, user: $user, message: $message, error: $error)';
   }
 
   @override
@@ -137,12 +151,13 @@ class _$UserInfoStateImpl extends _UserInfoState {
             other is _$UserInfoStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, message, error);
+  int get hashCode => Object.hash(runtimeType, isLoading, user, message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -154,12 +169,15 @@ class _$UserInfoStateImpl extends _UserInfoState {
 abstract class _UserInfoState extends UserInfoState {
   const factory _UserInfoState(
       {final bool isLoading,
+      final User? user,
       final String? message,
       final Error? error}) = _$UserInfoStateImpl;
   const _UserInfoState._() : super._();
 
   @override
   bool get isLoading;
+  @override
+  User? get user;
   @override
   String? get message;
   @override
