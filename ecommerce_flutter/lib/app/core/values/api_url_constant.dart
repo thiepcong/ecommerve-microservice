@@ -9,6 +9,8 @@ class ApiUrlConstants {
 
   static String updateUserInfo = '$baseUrl:4000/api/ecomSys/user/update/';
 
+  static String changePassword = '$baseUrl:4000/api/ecomSys/user/change/';
+
   static String search(String key) =>
       '$baseUrl:4003/api/ecomSys/search?key=$key';
 

@@ -58,4 +58,25 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       rethrow;
     }
   }
+
+  void changePassword(String oldPassword, String newPassword) async {
+    try {
+      emit(state.copyWith(isLoading: true, message: null));
+      final res = await _repo.changePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+      emit(state.copyWith(isLoading: false, message: res));
+    } catch (e) {
+      if (e is BadRequestException) {
+        emit(state.copyWith(message: e.message, isLoading: false));
+        return;
+      }
+      rethrow;
+    }
+  }
+
+  void setFilter(int filter) {
+    emit(state.copyWith(filter: filter));
+  }
 }

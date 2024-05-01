@@ -10,6 +10,7 @@ class UserInfoState with _$UserInfoState {
 
   const factory UserInfoState({
     @Default(false) bool isLoading,
+    @Default(0) int filter,
     User? user,
     String? message,
     Error? error,

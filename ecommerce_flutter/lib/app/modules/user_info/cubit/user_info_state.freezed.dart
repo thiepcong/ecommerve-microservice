@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserInfoState {
   bool get isLoading => throw _privateConstructorUsedError;
+  int get filter => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
@@ -32,7 +33,8 @@ abstract class $UserInfoStateCopyWith<$Res> {
           UserInfoState value, $Res Function(UserInfoState) then) =
       _$UserInfoStateCopyWithImpl<$Res, UserInfoState>;
   @useResult
-  $Res call({bool isLoading, User? user, String? message, Error? error});
+  $Res call(
+      {bool isLoading, int filter, User? user, String? message, Error? error});
 }
 
 /// @nodoc
@@ -49,6 +51,7 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? filter = null,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -58,6 +61,10 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      filter: null == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as int,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -82,7 +89,8 @@ abstract class _$$UserInfoStateImplCopyWith<$Res>
       __$$UserInfoStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, User? user, String? message, Error? error});
+  $Res call(
+      {bool isLoading, int filter, User? user, String? message, Error? error});
 }
 
 /// @nodoc
@@ -97,6 +105,7 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? filter = null,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -106,6 +115,10 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      filter: null == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as int,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -126,12 +139,19 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
 
 class _$UserInfoStateImpl extends _UserInfoState {
   const _$UserInfoStateImpl(
-      {this.isLoading = false, this.user, this.message, this.error})
+      {this.isLoading = false,
+      this.filter = 0,
+      this.user,
+      this.message,
+      this.error})
       : super._();
 
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final int filter;
   @override
   final User? user;
   @override
@@ -141,7 +161,7 @@ class _$UserInfoStateImpl extends _UserInfoState {
 
   @override
   String toString() {
-    return 'UserInfoState(isLoading: $isLoading, user: $user, message: $message, error: $error)';
+    return 'UserInfoState(isLoading: $isLoading, filter: $filter, user: $user, message: $message, error: $error)';
   }
 
   @override
@@ -151,13 +171,15 @@ class _$UserInfoStateImpl extends _UserInfoState {
             other is _$UserInfoStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, user, message, error);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, filter, user, message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -169,6 +191,7 @@ class _$UserInfoStateImpl extends _UserInfoState {
 abstract class _UserInfoState extends UserInfoState {
   const factory _UserInfoState(
       {final bool isLoading,
+      final int filter,
       final User? user,
       final String? message,
       final Error? error}) = _$UserInfoStateImpl;
@@ -176,6 +199,8 @@ abstract class _UserInfoState extends UserInfoState {
 
   @override
   bool get isLoading;
+  @override
+  int get filter;
   @override
   User? get user;
   @override

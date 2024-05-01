@@ -35,4 +35,20 @@ class UserInfoApi extends BaseRemoteSource {
       rethrow;
     }
   }
+
+  Future<String> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final request = dioClient.patch(ApiUrlConstants.changePassword, data: {
+      "old_password": oldPassword,
+      "new_password": newPassword,
+    });
+    try {
+      return callApiWithErrorParser(request)
+          .then((value) => value.data['message']);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

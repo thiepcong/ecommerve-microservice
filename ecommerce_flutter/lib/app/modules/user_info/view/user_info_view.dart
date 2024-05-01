@@ -6,13 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
-import '../../../core/widgets/button/primary_button.dart';
 import '../../../main_router.dart';
 import '../../home/widgets/app_bar_home.dart';
 import '../../home/widgets/tooltip_shape.dart';
 import '../cubit/user_info_cubit.dart';
 import '../cubit/user_info_state.dart';
 import '../repository/user_info_repository.dart';
+import 'change_address_page.dart';
+import 'change_password_page.dart';
+import 'update_profile_page.dart';
 
 class UserInfoView extends StatefulWidget {
   const UserInfoView({super.key});
@@ -22,21 +24,6 @@ class UserInfoView extends StatefulWidget {
 }
 
 class _UserInfoViewState extends State<UserInfoView> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _emailController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Title(
@@ -60,15 +47,6 @@ class _UserInfoViewState extends State<UserInfoView> {
             if (state.message != null) {
               ShowMessageInternal.showOverlay(context, state.message ?? '');
             }
-          },
-        ),
-        BlocListener<UserInfoCubit, UserInfoState>(
-          listenWhen: (previous, current) => previous.user != current.user,
-          listener: (context, state) {
-            _emailController.text = state.user?.email ?? '';
-            _firstNameController.text = state.user?.firstName ?? "";
-            _lastNameController.text = state.user?.lastName ?? '';
-            _phoneController.text = state.user?.phoneNumber ?? '';
           },
         ),
       ],
@@ -166,117 +144,70 @@ class _UserInfoViewState extends State<UserInfoView> {
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 36, vertical: 24),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 240, vertical: 24),
+                            padding: const EdgeInsets.symmetric(vertical: 24),
                             width: double.infinity,
                             decoration: const BoxDecoration(
                               color: AppColors.colorFFFFFFFF,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(24)),
                             ),
-                            child: Form(
-                              key: _formKey,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Hồ sơ của bạn",
-                                      style: TextStyles.mediumBlackS20,
-                                    ),
-                                    const SizedBox(height: 24),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller: _firstNameController,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Họ',
-                                          border: OutlineInputBorder(),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () => cubit.setFilter(0),
+                                        child: Text(
+                                          "Hồ sơ",
+                                          style: TextStyles.mediumBlackS20
+                                              .copyWith(
+                                                  color: state.filter == 0
+                                                      ? AppColors.colorFFf7472f
+                                                      : null),
                                         ),
-                                        validator: (value) {
-                                          if (value == null ||
-                                              value.trim().isEmpty) {
-                                            return 'Vui lòng nhập họ của bạn!';
-                                          }
-                                          return null;
-                                        },
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller: _lastNameController,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Tên',
-                                          border: OutlineInputBorder(),
+                                      TextButton(
+                                        onPressed: () => cubit.setFilter(1),
+                                        child: Text(
+                                          "Địa chỉ",
+                                          style: TextStyles.mediumBlackS20
+                                              .copyWith(
+                                                  color: state.filter == 1
+                                                      ? AppColors.colorFFf7472f
+                                                      : null),
                                         ),
-                                        validator: (value) {
-                                          if (value == null ||
-                                              value.trim().isEmpty) {
-                                            return 'Vui lòng nhập tên người dùng!';
-                                          }
-                                          return null;
-                                        },
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller: _phoneController,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Số điện thoại',
-                                          border: OutlineInputBorder(),
+                                      TextButton(
+                                        onPressed: () => cubit.setFilter(2),
+                                        child: Text(
+                                          "Đổi mật khẩu",
+                                          style: TextStyles.mediumBlackS20
+                                              .copyWith(
+                                                  color: state.filter == 2
+                                                      ? AppColors.colorFFf7472f
+                                                      : null),
                                         ),
-                                        validator: (value) {
-                                          if (value == null ||
-                                              value.trim().isEmpty) {
-                                            return 'Vui lòng nhập tên người dùng!';
-                                          }
-                                          return null;
-                                        },
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller: _emailController,
-                                        readOnly: true,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Email',
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null ||
-                                              value.trim().isEmpty) {
-                                            return 'Vui lòng nhập mật khẩu!';
-                                          }
-
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    PrimaryButton(
-                                      onTap: () => cubit.changeInfo(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                      ),
-                                      title: 'Lưu thay đổi',
-                                      backgroundColor: AppColors.colorFFf7472f,
-                                      textColor: AppColors.colorFFFFFFFF,
-                                      textSize: 32,
-                                      borderColor: AppColors.colorFFf7472f,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
+                                Expanded(
+                                  child: state.filter == 0
+                                      ? const UpdateProfilePage()
+                                      : state.filter == 1
+                                          ? const ChangeAddressPage()
+                                          : const ChangePasswordPage(),
+                                ),
+                              ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

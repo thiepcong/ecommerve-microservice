@@ -17,4 +17,14 @@ class UserInfoRepository {
       phoneNumber: phoneNumber,
     );
   }
+
+  Future<String> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    return _api.changePassword(
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    );
+  }
 }

@@ -7,6 +7,7 @@ import '../../../core/values/app_colors.dart';
 import '../../../core/values/show_message_internal.dart';
 import '../../../core/values/text_styles.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
+import '../../../core/widgets/button/primary_button.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../repository/home_repository.dart';
@@ -50,6 +51,10 @@ class _HomeViewState extends State<HomeView> {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           final cubit = context.read<HomeCubit>();
+          final products = state.products
+              .where((element) =>
+                  state.filter == null || element.type == state.filter)
+              .toList();
           return Scaffold(
             appBar: CustomAppBar(
               label: 'Trang chủ',
@@ -131,8 +136,47 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       AppBarHome(onSearch: (e) => cubit.search(e)),
                       // Expanded(child: Size)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              child: PrimaryButton(
+                                onTap: () => cubit.setFilter('book'),
+                                title: "Book",
+                                backgroundColor: state.filter == 'book'
+                                    ? AppColors.colorFFf7472f
+                                    : AppColors.transparent,
+                                textColor: state.filter == 'book'
+                                    ? AppColors.colorFFFFFFFF
+                                    : AppColors.colorFFf7472f,
+                                borderColor: AppColors.colorFFf7472f,
+                                textSize: 24,
+                              ),
+                            ),
+                            const SizedBox(width: 24),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              child: PrimaryButton(
+                                onTap: () => cubit.setFilter('mobile'),
+                                title: "Mobile",
+                                backgroundColor: state.filter == 'mobile'
+                                    ? AppColors.colorFFf7472f
+                                    : AppColors.transparent,
+                                textColor: state.filter == 'mobile'
+                                    ? AppColors.colorFFFFFFFF
+                                    : AppColors.colorFFf7472f,
+                                borderColor: AppColors.colorFFf7472f,
+                                textSize: 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Expanded(
-                        child: state.products.isEmpty
+                        child: products.isEmpty
                             ? const Center(
                                 child: Text(
                                   "Không có sản phẩm nào",
@@ -148,10 +192,9 @@ class _HomeViewState extends State<HomeView> {
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),
-                                itemCount: state.products.length,
+                                itemCount: products.length,
                                 itemBuilder: (context, index) {
-                                  return ProductItem(
-                                      item: state.products[index]);
+                                  return ProductItem(item: products[index]);
                                 },
                               ),
                       ),

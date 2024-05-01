@@ -12,6 +12,7 @@ class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
     @Default([]) List<Product> products,
+    String? filter,
     User? user,
     String? message,
     Error? error,

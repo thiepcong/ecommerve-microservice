@@ -56,7 +56,7 @@ class UserInfoView(APIView):
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def patch(self, request):
         serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             user = request.user

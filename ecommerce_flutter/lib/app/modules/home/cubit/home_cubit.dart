@@ -46,4 +46,8 @@ class HomeCubit extends Cubit<HomeState> {
       rethrow;
     }
   }
+
+  void setFilter(String filter) {
+    emit(state.copyWith(filter: filter));
+  }
 }

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
+  String? get filter => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
@@ -35,6 +36,7 @@ abstract class $HomeStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<Product> products,
+      String? filter,
       User? user,
       String? message,
       Error? error});
@@ -55,6 +57,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? isLoading = null,
     Object? products = null,
+    Object? filter = freezed,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -68,6 +71,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      filter: freezed == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -95,6 +102,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<Product> products,
+      String? filter,
       User? user,
       String? message,
       Error? error});
@@ -113,6 +121,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? products = null,
+    Object? filter = freezed,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -126,6 +135,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      filter: freezed == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as String?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -148,6 +161,7 @@ class _$HomeStateImpl extends _HomeState {
   const _$HomeStateImpl(
       {this.isLoading = false,
       final List<Product> products = const [],
+      this.filter,
       this.user,
       this.message,
       this.error})
@@ -167,6 +181,8 @@ class _$HomeStateImpl extends _HomeState {
   }
 
   @override
+  final String? filter;
+  @override
   final User? user;
   @override
   final String? message;
@@ -175,7 +191,7 @@ class _$HomeStateImpl extends _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, products: $products, user: $user, message: $message, error: $error)';
+    return 'HomeState(isLoading: $isLoading, products: $products, filter: $filter, user: $user, message: $message, error: $error)';
   }
 
   @override
@@ -186,14 +202,21 @@ class _$HomeStateImpl extends _HomeState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.filter, filter) || other.filter == filter) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading,
-      const DeepCollectionEquality().hash(_products), user, message, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      const DeepCollectionEquality().hash(_products),
+      filter,
+      user,
+      message,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -206,6 +229,7 @@ abstract class _HomeState extends HomeState {
   const factory _HomeState(
       {final bool isLoading,
       final List<Product> products,
+      final String? filter,
       final User? user,
       final String? message,
       final Error? error}) = _$HomeStateImpl;
@@ -215,6 +239,8 @@ abstract class _HomeState extends HomeState {
   bool get isLoading;
   @override
   List<Product> get products;
+  @override
+  String? get filter;
   @override
   User? get user;
   @override
