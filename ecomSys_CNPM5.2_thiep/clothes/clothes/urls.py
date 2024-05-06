@@ -16,6 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib import admin
+from django.urls import path
+from clothes_service.views import AddClothesView,SearchClothesListView,ClothesDetailView
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/ecomSys/clothes/add/', AddClothesView.as_view()),
+    path('api/ecomSys/clothes/search/<str:key>/', SearchClothesListView.as_view()),
+    path('api/ecomSys/clothes/detail/<str:clothes_id>/', ClothesDetailView.as_view()),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

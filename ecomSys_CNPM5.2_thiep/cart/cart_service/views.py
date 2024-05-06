@@ -66,6 +66,9 @@ class CartView(APIView):
         
         if type == 'mobile':
             product_url = "http://localhost:4005/api/ecomSys/mobile/detail/{}/".format(product_id)
+
+        if type == 'clothes':
+            product_url = "http://localhost:4006/api/ecomSys/clothes/detail/{}/".format(product_id)
         response = requests.get(product_url)
 
         if response.status_code == 200:

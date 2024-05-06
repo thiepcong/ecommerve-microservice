@@ -57,6 +57,12 @@ class _$MainRouter extends RootStackRouter {
         child: const UserInfoView(),
       );
     },
+    OrderViewRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const OrderView(),
+      );
+    },
   };
 
   @override
@@ -90,6 +96,10 @@ class _$MainRouter extends RootStackRouter {
         RouteConfig(
           UserInfoViewRoute.name,
           path: 'user_info',
+        ),
+        RouteConfig(
+          OrderViewRoute.name,
+          path: 'order',
         ),
       ];
 }
@@ -186,4 +196,16 @@ class UserInfoViewRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'UserInfoViewRoute';
+}
+
+/// generated route for
+/// [OrderView]
+class OrderViewRoute extends PageRouteInfo<void> {
+  const OrderViewRoute()
+      : super(
+          OrderViewRoute.name,
+          path: 'order',
+        );
+
+  static const String name = 'OrderViewRoute';
 }

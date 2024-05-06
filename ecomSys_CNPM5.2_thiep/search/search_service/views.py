@@ -21,6 +21,7 @@ class SearchView(APIView):
         result = []
         result += self.search_book(key)
         result += self.search_mobile(key)
+        result += self.search_clothes(key)
 
         return Response(result, status=status.HTTP_200_OK)
         
@@ -37,6 +38,13 @@ class SearchView(APIView):
         mobile_response = requests.get(mobile_service_url)
         if mobile_response.status_code == 200:
             return mobile_response.json()
+        return []
+    def search_clothes(self, key):
+        clothes_service_url = "http://localhost:4006/api/ecomSys/clothes/search/{}/".format(key)
+
+        clothes_response = requests.get(clothes_service_url)
+        if clothes_response.status_code == 200:
+            return clothes_response.json()
         return []
             
 class ShowSearchView(APIView):

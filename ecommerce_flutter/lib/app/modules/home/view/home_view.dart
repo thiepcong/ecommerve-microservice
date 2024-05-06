@@ -172,6 +172,22 @@ class _HomeViewState extends State<HomeView> {
                                 textSize: 24,
                               ),
                             ),
+                            const SizedBox(width: 24),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.1,
+                              child: PrimaryButton(
+                                onTap: () => cubit.setFilter('clothes'),
+                                title: "Clothes",
+                                backgroundColor: state.filter == 'clothes'
+                                    ? AppColors.colorFFf7472f
+                                    : AppColors.transparent,
+                                textColor: state.filter == 'clothes'
+                                    ? AppColors.colorFFFFFFFF
+                                    : AppColors.colorFFf7472f,
+                                borderColor: AppColors.colorFFf7472f,
+                                textSize: 24,
+                              ),
+                            ),
                           ],
                         ),
                       ),

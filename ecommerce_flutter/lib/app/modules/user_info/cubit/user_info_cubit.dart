@@ -30,7 +30,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       lastName: lastName,
       phoneNumber: phoneNumber,
     );
-    emit(state.copyWith(user: user, isLoading: false));
+    emit(state.copyWith(user: user, isLoading: false, filter: 1));
   }
 
   void changeInfo(String firstName, String lastName, String phoneNumber) async {
