@@ -17,20 +17,23 @@ class UserInfoApi extends BaseRemoteSource {
     });
     try {
       final pre = await SharedPreferences.getInstance();
-      final userId = pre.getInt("userId");
+      final userId = pre.getString("userId");
       final lastName = pre.getString("lastName");
       final firstName = pre.getString("firstName");
       final email = pre.getString("email");
       final phoneNumber = pre.getString("phoneNumber");
       final user = User(
-        id: userId ?? -1,
+        id: userId ?? '',
         email: email ?? '',
         firstName: firstName ?? '',
         lastName: lastName ?? '',
-        phoneNumber: phoneNumber ?? '',
+        mobile: phoneNumber ?? '',
+        address: '',
+        dob: DateTime.now(),
+        password: '',
+        position: -1,
       );
-      return callApiWithErrorParser(request)
-          .then((value) => user.copyWithMap(map: value.data));
+      return callApiWithErrorParser(request).then((value) => user);
     } catch (e) {
       rethrow;
     }

@@ -1,61 +1,77 @@
+import 'package:intl/intl.dart';
+
 class User {
-  final int id;
+  final String id;
   final String firstName;
   final String lastName;
-  final String phoneNumber;
+  final String mobile;
   final String email;
+  final String password;
+  final String address;
+  final DateTime dob;
+  final int position;
 
   User({
     required this.id,
     required this.firstName,
     required this.lastName,
-    required this.phoneNumber,
+    required this.mobile,
     required this.email,
+    required this.address,
+    required this.dob,
+    required this.password,
+    required this.position,
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'first_name': firstName,
-      'last_name': lastName,
-      'phone_number': phoneNumber,
+      'firstName': firstName,
+      'lastName': lastName,
+      'mobile': mobile,
       'email': email,
+      'password': password,
+      'address': address,
+      'dob': dob,
+      'position': position,
     };
   }
 
   factory User.fromJson(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as int,
-      firstName: map['first_name'] as String,
-      lastName: map['last_name'] as String,
-      phoneNumber: map['phone_number'] as String,
+      id: map['id'] as String,
+      firstName: map['fname'] as String,
+      lastName: map['lname'] as String,
+      mobile: map['mobile'] as String,
       email: map['email'] as String,
+      password: map['password'] as String,
+      address: map['address'] as String,
+      dob: DateFormat('yyyy-MM-dd').parse(map['dob'] as String),
+      position: map['position'] as int,
     );
   }
 
   User copyWith({
-    int? id,
+    String? id,
     String? firstName,
     String? lastName,
-    String? phoneNumber,
+    String? mobile,
     String? email,
+    String? password,
+    String? address,
+    DateTime? dob,
+    int? position,
   }) {
     return User(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      mobile: mobile ?? this.mobile,
       email: email ?? this.email,
-    );
-  }
-
-  User copyWithMap({required Map<String, dynamic> map}) {
-    return User(
-      id: id,
-      firstName: map['first_name'] as String,
-      lastName: map['last_name'] as String,
-      phoneNumber: map['phone_number'] as String,
-      email: email,
+      password: password ?? this.password,
+      address: address ?? this.address,
+      dob: dob ?? this.dob,
+      position: position ?? this.position,
     );
   }
 }

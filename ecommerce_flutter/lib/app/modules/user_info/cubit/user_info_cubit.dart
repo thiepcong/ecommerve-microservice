@@ -13,7 +13,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
   void init() async {
     emit(state.copyWith(message: null, isLoading: true));
     final pre = await SharedPreferences.getInstance();
-    final userId = pre.getInt("userId");
+    final userId = pre.getString("userId");
     final lastName = pre.getString("lastName");
     final firstName = pre.getString("firstName");
     final email = pre.getString("email");
@@ -24,12 +24,15 @@ class UserInfoCubit extends Cubit<UserInfoState> {
         email == null ||
         phoneNumber == null) return;
     final user = User(
-      id: userId,
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-    );
+        id: userId,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        mobile: phoneNumber,
+        address: '',
+        dob: DateTime.now(),
+        password: '',
+        position: -1);
     emit(state.copyWith(user: user, isLoading: false, filter: 1));
   }
 
@@ -44,7 +47,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       final pre = await SharedPreferences.getInstance();
       await pre.setString("lastName", res.lastName);
       await pre.setString("firstName", res.firstName);
-      await pre.setString("phoneNumber", res.phoneNumber);
+      await pre.setString("phoneNumber", res.mobile);
       emit(state.copyWith(
         user: res,
         isLoading: false,

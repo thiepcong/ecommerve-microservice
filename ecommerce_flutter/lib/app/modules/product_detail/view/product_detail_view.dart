@@ -144,7 +144,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                               const SizedBox(width: 24),
                               ImageNetwork(
                                 image:
-                                    "http://127.0.0.1:${widget.item.type == 'book' ? 4002 : widget.item.type == 'mobile' ? 4005 : 4006}${widget.item.image}",
+                                    "http://127.0.0.1:4002${widget.item.image}",
                                 height: 400,
                                 width: 400,
                                 duration: 1500,

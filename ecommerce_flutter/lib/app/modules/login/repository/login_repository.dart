@@ -15,6 +15,9 @@ class LoginRepository {
     required String phoneNumber,
     required String email,
     required String password,
+    required String address,
+    required DateTime dob,
+    required int position,
   }) async {
     return _api.register(
       firstName: firstName,
@@ -22,6 +25,9 @@ class LoginRepository {
       phoneNumber: phoneNumber,
       email: email,
       password: password,
+      address: address,
+      dob: dob,
+      position: position,
     );
   }
 }

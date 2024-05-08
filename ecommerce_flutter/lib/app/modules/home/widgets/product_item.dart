@@ -25,7 +25,7 @@ class ProductItem extends StatelessWidget {
           children: [
             ImageNetwork(
               image:
-                  "http://127.0.0.1:${item.type == 'book' ? 4002 : item.type == 'mobile' ? 4005 : 4006}${item.image}",
+                  "http://127.0.0.1:4002${item.image}",
               height: 150,
               width: 150,
               duration: 1500,

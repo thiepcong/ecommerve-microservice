@@ -44,7 +44,7 @@ class CartItem extends StatelessWidget {
               children: [
                 ImageNetwork(
                   image:
-                      "http://127.0.0.1:${item.product.type == 'book' ? 4002 : item.product.type == 'mobile' ? 4005 : 4006}${item.product.image}",
+                      "http://127.0.0.1:4002${item.product.image}",
                   height: 100,
                   width: 100,
                   duration: 1500,

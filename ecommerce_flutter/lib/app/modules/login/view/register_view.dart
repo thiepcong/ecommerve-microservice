@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/show_message_internal.dart';
 import '../../../core/values/text_styles.dart';
@@ -23,6 +24,9 @@ class _RegisterViewState extends State<RegisterView> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _dobController = TextEditingController();
+  final _positionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,6 +36,9 @@ class _RegisterViewState extends State<RegisterView> {
     _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _addressController.dispose();
+    _dobController.dispose();
+    _positionController.dispose();
     super.dispose();
   }
 
@@ -45,6 +52,21 @@ class _RegisterViewState extends State<RegisterView> {
         child: _buildPage(context),
       ),
     );
+  }
+
+  void _showSelectDate(
+    BuildContext context,
+    void Function(DateTime) onPicker,
+  ) async {
+    final res = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      initialDate: DateTime.now(),
+    );
+    if (res != null) {
+      onPicker.call(res);
+    }
   }
 
   Widget _buildPage(BuildContext context) {
@@ -125,6 +147,12 @@ class _RegisterViewState extends State<RegisterView> {
                                         _phoneController.text,
                                         _emailController.text,
                                         _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
                                       );
                                     }
                                   },
@@ -153,6 +181,12 @@ class _RegisterViewState extends State<RegisterView> {
                                         _phoneController.text,
                                         _emailController.text,
                                         _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
                                       );
                                     }
                                   },
@@ -181,6 +215,12 @@ class _RegisterViewState extends State<RegisterView> {
                                         _phoneController.text,
                                         _emailController.text,
                                         _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
                                       );
                                     }
                                   },
@@ -209,12 +249,18 @@ class _RegisterViewState extends State<RegisterView> {
                                         _phoneController.text,
                                         _emailController.text,
                                         _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
                                       );
                                     }
                                   },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
-                                      return 'Vui lòng nhập mật khẩu!';
+                                      return 'Vui lòng nhập email!';
                                     }
 
                                     return null;
@@ -239,6 +285,12 @@ class _RegisterViewState extends State<RegisterView> {
                                         _phoneController.text,
                                         _emailController.text,
                                         _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
                                       );
                                     }
                                   },
@@ -246,6 +298,119 @@ class _RegisterViewState extends State<RegisterView> {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập mật khẩu!';
                                     }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _addressController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Địa chỉ',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  onFieldSubmitted: (e) {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.register(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
+                                      );
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập địa chỉ!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _dobController,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'Ngày sinh',
+                                    border: const OutlineInputBorder(),
+                                    suffixIcon: IconButton(
+                                      onPressed: () =>
+                                          _showSelectDate(context, (date) {
+                                        _dobController.text =
+                                            DateFormat("dd/MM/yyyy")
+                                                .format(date);
+                                      }),
+                                      icon: const Icon(Icons.calendar_month),
+                                    ),
+                                  ),
+                                  onFieldSubmitted: (e) {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.register(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
+                                      );
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập mật khẩu!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _positionController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Position',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  onFieldSubmitted: (e) {
+                                    if (_formKey.currentState!.validate()) {
+                                      cubit.register(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _phoneController.text,
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _addressController.text,
+                                        DateFormat("dd/MM/yyyy")
+                                            .parse(_dobController.text),
+                                        int.tryParse(
+                                                _positionController.text) ??
+                                            -1,
+                                      );
+                                    }
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập po!';
+                                    }
+
                                     return null;
                                   },
                                 ),
@@ -260,6 +425,11 @@ class _RegisterViewState extends State<RegisterView> {
                                       _phoneController.text,
                                       _emailController.text,
                                       _passwordController.text,
+                                      _addressController.text,
+                                      DateFormat("dd/MM/yyyy")
+                                          .parse(_dobController.text),
+                                      int.tryParse(_positionController.text) ??
+                                          -1,
                                     );
                                   }
                                 },

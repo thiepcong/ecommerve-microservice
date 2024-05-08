@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,22 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@Helios'
-REFRESH_TOKEN_SECRET = 'hong'
+SECRET_KEY = 'django-insecure-w4*y!p#ooswv7xu+t8x#g72q&3o)gt6r!z8nk@ghx)^f8o=$3e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-PORT = 4000
-
-AUTH_USER_MODEL = 'user_service.User'
+PORT = 4001
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -44,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'user_service',
+    'user_info',
+    'user_model',
+    'user_login',
 ]
 
 MIDDLEWARE = [
@@ -142,14 +140,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'http://localhost:3000' # the domain for front-end app(you can add more than 1)
 # ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'user_service.authentication.SafeJWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'user_service.authentication.SafeJWTAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     )
+# }
 
 
 

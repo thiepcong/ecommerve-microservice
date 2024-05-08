@@ -13,22 +13,26 @@ class HomeCubit extends Cubit<HomeState> {
   void init() async {
     emit(state.copyWith(message: null, isLoading: true));
     final pre = await SharedPreferences.getInstance();
-    final userId = pre.getInt("userId");
+    final userId = pre.getString("userId");
     final lastName = pre.getString("lastName");
     final firstName = pre.getString("firstName");
     final email = pre.getString("email");
-    final phoneNumber = pre.getString("phoneNumber");
+    final mobile = pre.getString("mobile");
     if (userId == null ||
         lastName == null ||
         firstName == null ||
         email == null ||
-        phoneNumber == null) return;
+        mobile == null) return;
     final user = User(
       id: userId,
       email: email,
       firstName: firstName,
       lastName: lastName,
-      phoneNumber: phoneNumber,
+      mobile: mobile,
+      address: '',
+      dob: DateTime.now(),
+      password: '',
+      position: -1,
     );
     emit(state.copyWith(user: user, isLoading: false));
   }

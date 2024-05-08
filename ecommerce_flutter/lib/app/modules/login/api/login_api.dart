@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:intl/intl.dart';
+
 import '../../../core/base/base_remote_source.dart';
 import '../../../core/models/user.dart';
 import '../../../core/values/api_url_constant.dart';
@@ -13,7 +17,7 @@ class LoginApi extends BaseRemoteSource {
     });
     try {
       return callApiWithErrorParser(request)
-          .then((value) => User.fromJson(value.data["user"]));
+          .then((value) => User.fromJson(value.data));
     } catch (e) {
       rethrow;
     }
@@ -25,17 +29,24 @@ class LoginApi extends BaseRemoteSource {
     required String phoneNumber,
     required String email,
     required String password,
+    required String address,
+    required DateTime dob,
+    required int position,
   }) async {
     final request = dioClient.post(ApiUrlConstants.register, data: {
-      "first_name": firstName,
-      "last_name": lastName,
-      "phone_number": phoneNumber,
+      "id": Random().nextInt(100000).toString(),
+      "fname": firstName,
+      "lname": lastName,
+      "mobile": phoneNumber,
       "email": email,
       "password": password,
+      "address": address,
+      "dob": DateFormat('yyyy-MM-dd').format(dob),
+      "position": position,
     });
     try {
       return callApiWithErrorParser(request)
-          .then((value) => User.fromJson(value.data["user"]));
+          .then((value) => User.fromJson(value.data));
     } catch (e) {
       rethrow;
     }

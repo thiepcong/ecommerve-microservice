@@ -16,6 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from shipment_service.views import CarriersView, ShipmentInfoView, ShipmentView, TransactionView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/ecomSys/shipment/shipment-info', ShipmentInfoView.as_view()),
+    path('api/ecomSys/shipment/shipment-info/<int:id>', ShipmentInfoView.as_view()),
+    path('api/ecomSys/shipment/transaction', TransactionView.as_view()),
+    path('api/ecomSys/shipment/transaction/<int:id>', TransactionView.as_view()),
+    path('api/ecomSys/shipment/carrier', CarriersView.as_view()),
+    path('api/ecomSys/shipment/carrier/<int:id>', CarriersView.as_view()),
+    path('api/ecomSys/shipment/', ShipmentView.as_view()),
+    path('api/ecomSys/shipment/<int:id>', ShipmentView.as_view()),
 ]

@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from payment_service.views import PaymentMethodView, PaymentView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/ecomSys/payment/payment-method', PaymentMethodView.as_view()),
+    path('api/ecomSys/payment/payment-method/<int:id>', PaymentMethodView.as_view()),
+    path('api/ecomSys/payment', PaymentView.as_view()),
+    path('api/ecomSys/payment/<int:id>', PaymentView.as_view()),
 ]

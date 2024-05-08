@@ -38,7 +38,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _emailController.text = state.user?.email ?? '';
         _firstNameController.text = state.user?.firstName ?? "";
         _lastNameController.text = state.user?.lastName ?? '';
-        _phoneController.text = state.user?.phoneNumber ?? '';
+        _phoneController.text = state.user?.mobile ?? '';
       },
       child: BlocBuilder<UserInfoCubit, UserInfoState>(
         builder: (context, state) {
