@@ -21,6 +21,8 @@ class LoginCubit extends Cubit<LoginState> {
       await pre.setString("firstName", res.firstName);
       await pre.setString("email", res.email);
       await pre.setString("mobile", res.mobile);
+      await pre.setString("dob", res.dob.toString());
+      await pre.setString("address", res.address);
       emit(state.copyWith(
         authDone: true,
         isLoading: false,
@@ -64,6 +66,12 @@ class LoginCubit extends Cubit<LoginState> {
       );
       final pre = await SharedPreferences.getInstance();
       await pre.setString("userId", res.id);
+      await pre.setString("lastName", res.lastName);
+      await pre.setString("firstName", res.firstName);
+      await pre.setString("email", res.email);
+      await pre.setString("mobile", res.mobile);
+      await pre.setString("dob", res.dob.toString());
+      await pre.setString("address", res.address);
       emit(state.copyWith(
         authDone: true,
         isLoading: false,

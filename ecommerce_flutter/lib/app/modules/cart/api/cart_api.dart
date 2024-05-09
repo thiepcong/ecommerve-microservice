@@ -6,7 +6,10 @@ import '../../../core/values/api_url_constant.dart';
 
 class CartApi extends BaseRemoteSource {
   Future<CartResponse> getAllCartItem() async {
-    final request = dioClient.get(ApiUrlConstants.getAllCartItem);
+    final pre = await SharedPreferences.getInstance();
+    final userId = pre.getString("userId");
+    final request = dioClient
+        .post(ApiUrlConstants.getAllCartItem, data: {"user_id": userId});
     try {
       return callApiWithErrorParser(request)
           .then((value) => CartResponse.fromJson(value.data));
@@ -21,7 +24,7 @@ class CartApi extends BaseRemoteSource {
     required String productId,
   }) async {
     final pre = await SharedPreferences.getInstance();
-    final userId = pre.getInt("userId");
+    final userId = pre.getString("userId");
     final request = dioClient.post(ApiUrlConstants.addToCart, data: {
       "user_id": userId,
       "quantity": quantity,
@@ -37,7 +40,10 @@ class CartApi extends BaseRemoteSource {
   }
 
   Future<String> deleteCartItem({required String productId}) async {
-    final request = dioClient.delete(ApiUrlConstants.deleteCartItem(productId));
+    final pre = await SharedPreferences.getInstance();
+    final userId = pre.getString("userId");
+    final request = dioClient
+        .delete(ApiUrlConstants.deleteCartItem(userId ?? '', productId));
     try {
       return callApiWithErrorParser(request)
           .then((value) => "Đã xoá thành công");

@@ -17,37 +17,51 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     final lastName = pre.getString("lastName");
     final firstName = pre.getString("firstName");
     final email = pre.getString("email");
-    final phoneNumber = pre.getString("phoneNumber");
+    final mobile = pre.getString("mobile");
+    final dob = pre.getString("dob");
+    final address = pre.getString("address");
     if (userId == null ||
         lastName == null ||
         firstName == null ||
         email == null ||
-        phoneNumber == null) return;
+        mobile == null ||
+        dob == null ||
+        address == null) return;
     final user = User(
         id: userId,
         email: email,
         firstName: firstName,
         lastName: lastName,
-        mobile: phoneNumber,
-        address: '',
-        dob: DateTime.now(),
+        mobile: mobile,
+        address: address,
+        dob: DateTime.parse(dob),
         password: '',
         position: -1);
-    emit(state.copyWith(user: user, isLoading: false, filter: 1));
+    emit(state.copyWith(user: user, isLoading: false));
   }
 
-  void changeInfo(String firstName, String lastName, String phoneNumber) async {
+  void changeInfo(
+    String firstName,
+    String lastName,
+    String mobile,
+    String address,
+    DateTime dob,
+  ) async {
     try {
       emit(state.copyWith(isLoading: true, message: null));
       final res = await _repo.updateUserInfo(
         firstName: firstName,
         lastName: lastName,
-        phoneNumber: phoneNumber,
+        mobile: mobile,
+        address: address,
+        dob: dob,
       );
       final pre = await SharedPreferences.getInstance();
       await pre.setString("lastName", res.lastName);
       await pre.setString("firstName", res.firstName);
-      await pre.setString("phoneNumber", res.mobile);
+      await pre.setString("mobile", res.mobile);
+      await pre.setString("dob", res.dob.toString());
+      await pre.setString("address", res.address);
       emit(state.copyWith(
         user: res,
         isLoading: false,

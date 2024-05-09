@@ -24,7 +24,7 @@ class AddToCartView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CartView(APIView):
-    def get(self, request):
+    def post(self, request):
             user_id = request.data.get('user_id')
             cart_items = CartItem.objects.filter(is_active=True, user_id=user_id)
             cart_total = 0

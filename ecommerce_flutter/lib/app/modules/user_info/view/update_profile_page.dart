@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
@@ -18,7 +19,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _dobController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,8 +28,24 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _phoneController.dispose();
-    _emailController.dispose();
+    _addressController.dispose();
+    _dobController.dispose();
     super.dispose();
+  }
+
+  void _showSelectDate(
+    BuildContext context,
+    void Function(DateTime) onPicker,
+  ) async {
+    final res = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      initialDate: DateTime.now(),
+    );
+    if (res != null) {
+      onPicker.call(res);
+    }
   }
 
   @override
@@ -35,10 +53,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return BlocListener<UserInfoCubit, UserInfoState>(
       listenWhen: (previous, current) => previous.user != current.user,
       listener: (context, state) {
-        _emailController.text = state.user?.email ?? '';
+        _addressController.text = state.user?.address ?? '';
         _firstNameController.text = state.user?.firstName ?? "";
         _lastNameController.text = state.user?.lastName ?? '';
         _phoneController.text = state.user?.mobile ?? '';
+        _dobController.text =
+            DateFormat('dd/MM/yyyy').format(state.user?.dob ?? DateTime.now());
       },
       child: BlocBuilder<UserInfoCubit, UserInfoState>(
         builder: (context, state) {
@@ -110,15 +130,40 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        controller: _emailController,
-                        readOnly: true,
+                        controller: _addressController,
                         decoration: const InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Địa chỉ',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Vui lòng nhập mật khẩu!';
+                            return 'Vui lòng nhập địa chỉ!';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        controller: _dobController,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          labelText: 'Ngày sinh',
+                          border: const OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            onPressed: () => _showSelectDate(context, (date) {
+                              _dobController.text =
+                                  DateFormat("dd/MM/yyyy").format(date);
+                            }),
+                            icon: const Icon(Icons.calendar_month),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Vui lòng nhập ngày sinh!';
                           }
 
                           return null;
@@ -131,6 +176,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         _firstNameController.text,
                         _lastNameController.text,
                         _phoneController.text,
+                        _addressController.text,
+                        DateFormat('dd/MM/yyyy').parse(_dobController.text),
                       ),
                       title: 'Lưu thay đổi',
                       backgroundColor: AppColors.colorFFf7472f,

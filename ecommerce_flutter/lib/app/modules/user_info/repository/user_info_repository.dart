@@ -9,12 +9,16 @@ class UserInfoRepository {
   Future<User> updateUserInfo({
     required String firstName,
     required String lastName,
-    required String phoneNumber,
+    required String mobile,
+    required String address,
+    required DateTime dob,
   }) async {
     return _api.updateUserInfo(
       firstName: firstName,
       lastName: lastName,
-      phoneNumber: phoneNumber,
+      mobile: mobile,
+      address: address,
+      dob: dob,
     );
   }
 

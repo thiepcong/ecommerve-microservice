@@ -374,7 +374,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
-                                      return 'Vui lòng nhập mật khẩu!';
+                                      return 'Vui lòng nhập ngày sinh!';
                                     }
                                     return null;
                                   },

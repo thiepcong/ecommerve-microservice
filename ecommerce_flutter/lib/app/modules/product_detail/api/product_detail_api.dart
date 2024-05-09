@@ -10,13 +10,13 @@ class ProductDetailApi extends BaseRemoteSource {
     required String productId,
   }) async {
     final pre = await SharedPreferences.getInstance();
-    final userId = pre.getInt("userId");
+    final userId = pre.getString("userId");
     final request = dioClient.post(ApiUrlConstants.addToCart, data: {
       "user_id": userId,
       "quantity": quantity,
       "type": type,
       "product_id": productId,
-    }); 
+    });
     try {
       return callApiWithErrorParser(request)
           .then((value) => value.data['quantity']);

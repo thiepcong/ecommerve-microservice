@@ -21,13 +21,13 @@ class ChangePasswordView(APIView):
         if not user:
             return Response({'message': 'User does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = ChangePasswordSerializer(data=request.data)
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             old_password = serializer.validated_data['old_password']
             new_password = serializer.validated_data['new_password']
             if user.password != old_password:
                 return Response({'message': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
-            user.set_password(new_password)
+            user.password = new_password
             user.save()
             return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

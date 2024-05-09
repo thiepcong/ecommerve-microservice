@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/base/base_remote_source.dart';
@@ -8,32 +9,48 @@ class UserInfoApi extends BaseRemoteSource {
   Future<User> updateUserInfo({
     required String firstName,
     required String lastName,
-    required String phoneNumber,
+    required String mobile,
+    required String address,
+    required DateTime dob,
   }) async {
-    final request = dioClient.put(ApiUrlConstants.updateUserInfo, data: {
-      "first_name": firstName,
-      "last_name": lastName,
-      "phone_number": phoneNumber,
-    });
+    final pre = await SharedPreferences.getInstance();
+    final userId = pre.getString("userId");
+    final request = dioClient.put(
+      ApiUrlConstants.updateUserInfo(userId ?? ''),
+      data: {
+        "fname": firstName,
+        "lname": lastName,
+        "mobile": mobile,
+        'address': address,
+        "dob": DateFormat('yyyy-MM-dd').format(dob),
+      },
+    );
     try {
       final pre = await SharedPreferences.getInstance();
       final userId = pre.getString("userId");
-      final lastName = pre.getString("lastName");
-      final firstName = pre.getString("firstName");
-      final email = pre.getString("email");
-      final phoneNumber = pre.getString("phoneNumber");
+      final lastName1 = pre.getString("lastName");
+      final firstName1 = pre.getString("firstName");
+      final email1 = pre.getString("email");
+      final mobile1 = pre.getString("mobile");
+      final address1 = pre.getString("address");
+      final dob1 = pre.getString("dob");
       final user = User(
         id: userId ?? '',
-        email: email ?? '',
-        firstName: firstName ?? '',
-        lastName: lastName ?? '',
-        mobile: phoneNumber ?? '',
-        address: '',
-        dob: DateTime.now(),
+        email: email1 ?? '',
+        firstName: firstName1 ?? '',
+        lastName: lastName1 ?? '',
+        mobile: mobile1 ?? '',
+        address: address1 ?? '',
+        dob: DateTime.parse(dob1 ?? ''),
         password: '',
         position: -1,
       );
-      return callApiWithErrorParser(request).then((value) => user);
+      return callApiWithErrorParser(request).then((value) => user.copyWith(
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            dob: dob,
+          ));
     } catch (e) {
       rethrow;
     }
@@ -43,7 +60,10 @@ class UserInfoApi extends BaseRemoteSource {
     required String oldPassword,
     required String newPassword,
   }) async {
-    final request = dioClient.patch(ApiUrlConstants.changePassword, data: {
+    final pre = await SharedPreferences.getInstance();
+    final userId = pre.getString("userId");
+    final request =
+        dioClient.post(ApiUrlConstants.changePassword(userId ?? ''), data: {
       "old_password": oldPassword,
       "new_password": newPassword,
     });

@@ -7,9 +7,11 @@ class ApiUrlConstants {
 
   static String login = '$baseUrl:4001/api/ecomSys/user/login/';
 
-  static String updateUserInfo = '$baseUrl:4001/api/ecomSys/user/update/';
+  static String updateUserInfo(String userId) =>
+      '$baseUrl:4001/api/ecomSys/user/update/$userId';
 
-  static String changePassword = '$baseUrl:4001/api/ecomSys/user/change/';
+  static String changePassword(String userId) =>
+      '$baseUrl:4001/api/ecomSys/user/change/$userId';
 
   static String search(String key, String userId) =>
       '$baseUrl:4003/api/ecomSys/search?key=$key&user_id=$userId';
@@ -18,6 +20,6 @@ class ApiUrlConstants {
 
   static String addToCart = '$baseUrl:4004/api/ecomSys/cart/add/';
 
-  static String deleteCartItem(String productId) =>
-      '$baseUrl:4004/api/ecomSys/cart/delete/$productId/';
+  static String deleteCartItem(String userId, String productId) =>
+      '$baseUrl:4004/api/ecomSys/cart/delete/$userId/$productId/';
 }
