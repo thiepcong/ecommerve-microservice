@@ -1,3 +1,4 @@
+import '../../../core/models/address.dart';
 import '../../../core/models/user.dart';
 import '../api/user_info_api.dart';
 
@@ -30,5 +31,21 @@ class UserInfoRepository {
       oldPassword: oldPassword,
       newPassword: newPassword,
     );
+  }
+
+  Future<List<Address>> getAllAddress() async {
+    return _api.getAllAddress();
+  }
+
+  Future<Address> addAddress({required Address address}) async {
+    return _api.addAddress(address: address);
+  }
+
+  Future<Address> updateAddress({required Address address}) async {
+    return _api.updateAddress(address: address);
+  }
+
+  Future<String> deleteAddress({required Address address}) async {
+    return _api.deleteAddress(address: address);
   }
 }

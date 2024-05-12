@@ -58,9 +58,14 @@ class _$MainRouter extends RootStackRouter {
       );
     },
     OrderViewRoute.name: (routeData) {
+      final args = routeData.argsAs<OrderViewRouteArgs>(
+          orElse: () => const OrderViewRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const OrderView(),
+        child: OrderView(
+          key: args.key,
+          carts: args.carts,
+        ),
       );
     },
   };
@@ -200,12 +205,34 @@ class UserInfoViewRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [OrderView]
-class OrderViewRoute extends PageRouteInfo<void> {
-  const OrderViewRoute()
-      : super(
+class OrderViewRoute extends PageRouteInfo<OrderViewRouteArgs> {
+  OrderViewRoute({
+    Key? key,
+    List<CartItemModel>? carts,
+  }) : super(
           OrderViewRoute.name,
           path: 'order',
+          args: OrderViewRouteArgs(
+            key: key,
+            carts: carts,
+          ),
         );
 
   static const String name = 'OrderViewRoute';
+}
+
+class OrderViewRouteArgs {
+  const OrderViewRouteArgs({
+    this.key,
+    this.carts,
+  });
+
+  final Key? key;
+
+  final List<CartItemModel>? carts;
+
+  @override
+  String toString() {
+    return 'OrderViewRouteArgs{key: $key, carts: $carts}';
+  }
 }

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CartState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<CartItemModel> get carts => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
 
@@ -34,6 +35,7 @@ abstract class $CartStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<CartItemModel> carts,
+      User? user,
       String? message,
       Error? error});
 }
@@ -53,6 +55,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   $Res call({
     Object? isLoading = null,
     Object? carts = null,
+    Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -65,6 +68,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.carts
           : carts // ignore: cast_nullable_to_non_nullable
               as List<CartItemModel>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -88,6 +95,7 @@ abstract class _$$CartStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<CartItemModel> carts,
+      User? user,
       String? message,
       Error? error});
 }
@@ -105,6 +113,7 @@ class __$$CartStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? carts = null,
+    Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
   }) {
@@ -117,6 +126,10 @@ class __$$CartStateImplCopyWithImpl<$Res>
           ? _value._carts
           : carts // ignore: cast_nullable_to_non_nullable
               as List<CartItemModel>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -135,6 +148,7 @@ class _$CartStateImpl extends _CartState {
   const _$CartStateImpl(
       {this.isLoading = false,
       final List<CartItemModel> carts = const [],
+      this.user,
       this.message,
       this.error})
       : _carts = carts,
@@ -153,13 +167,15 @@ class _$CartStateImpl extends _CartState {
   }
 
   @override
+  final User? user;
+  @override
   final String? message;
   @override
   final Error? error;
 
   @override
   String toString() {
-    return 'CartState(isLoading: $isLoading, carts: $carts, message: $message, error: $error)';
+    return 'CartState(isLoading: $isLoading, carts: $carts, user: $user, message: $message, error: $error)';
   }
 
   @override
@@ -170,13 +186,14 @@ class _$CartStateImpl extends _CartState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._carts, _carts) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading,
-      const DeepCollectionEquality().hash(_carts), message, error);
+      const DeepCollectionEquality().hash(_carts), user, message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -189,6 +206,7 @@ abstract class _CartState extends CartState {
   const factory _CartState(
       {final bool isLoading,
       final List<CartItemModel> carts,
+      final User? user,
       final String? message,
       final Error? error}) = _$CartStateImpl;
   const _CartState._() : super._();
@@ -197,6 +215,8 @@ abstract class _CartState extends CartState {
   bool get isLoading;
   @override
   List<CartItemModel> get carts;
+  @override
+  User? get user;
   @override
   String? get message;
   @override

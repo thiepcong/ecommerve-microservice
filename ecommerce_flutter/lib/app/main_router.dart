@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'app_routes.dart';
+import 'core/models/cart_item_model.dart';
 import 'core/models/product.dart';
 import 'modules/cart/view/cart_view.dart';
 import 'modules/home/view/home_view.dart';

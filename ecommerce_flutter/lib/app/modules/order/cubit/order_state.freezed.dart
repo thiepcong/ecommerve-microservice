@@ -16,6 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OrderState {
+  List<Address> get addresses => throw _privateConstructorUsedError;
+  Address? get currentAddress => throw _privateConstructorUsedError;
+  List<Carrier> get carriers => throw _privateConstructorUsedError;
+  Carrier? get currentCarrier => throw _privateConstructorUsedError;
+  List<CartItemModel> get carts => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
@@ -31,7 +36,15 @@ abstract class $OrderStateCopyWith<$Res> {
           OrderState value, $Res Function(OrderState) then) =
       _$OrderStateCopyWithImpl<$Res, OrderState>;
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call(
+      {List<Address> addresses,
+      Address? currentAddress,
+      List<Carrier> carriers,
+      Carrier? currentCarrier,
+      List<CartItemModel> carts,
+      bool isLoading,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -47,11 +60,36 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? addresses = null,
+    Object? currentAddress = freezed,
+    Object? carriers = null,
+    Object? currentCarrier = freezed,
+    Object? carts = null,
     Object? isLoading = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
+      addresses: null == addresses
+          ? _value.addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>,
+      currentAddress: freezed == currentAddress
+          ? _value.currentAddress
+          : currentAddress // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      carriers: null == carriers
+          ? _value.carriers
+          : carriers // ignore: cast_nullable_to_non_nullable
+              as List<Carrier>,
+      currentCarrier: freezed == currentCarrier
+          ? _value.currentCarrier
+          : currentCarrier // ignore: cast_nullable_to_non_nullable
+              as Carrier?,
+      carts: null == carts
+          ? _value.carts
+          : carts // ignore: cast_nullable_to_non_nullable
+              as List<CartItemModel>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -76,7 +114,15 @@ abstract class _$$OrderStateImplCopyWith<$Res>
       __$$OrderStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String? message, Error? error});
+  $Res call(
+      {List<Address> addresses,
+      Address? currentAddress,
+      List<Carrier> carriers,
+      Carrier? currentCarrier,
+      List<CartItemModel> carts,
+      bool isLoading,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -90,11 +136,36 @@ class __$$OrderStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? addresses = null,
+    Object? currentAddress = freezed,
+    Object? carriers = null,
+    Object? currentCarrier = freezed,
+    Object? carts = null,
     Object? isLoading = null,
     Object? message = freezed,
     Object? error = freezed,
   }) {
     return _then(_$OrderStateImpl(
+      addresses: null == addresses
+          ? _value._addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>,
+      currentAddress: freezed == currentAddress
+          ? _value.currentAddress
+          : currentAddress // ignore: cast_nullable_to_non_nullable
+              as Address?,
+      carriers: null == carriers
+          ? _value._carriers
+          : carriers // ignore: cast_nullable_to_non_nullable
+              as List<Carrier>,
+      currentCarrier: freezed == currentCarrier
+          ? _value.currentCarrier
+          : currentCarrier // ignore: cast_nullable_to_non_nullable
+              as Carrier?,
+      carts: null == carts
+          ? _value._carts
+          : carts // ignore: cast_nullable_to_non_nullable
+              as List<CartItemModel>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -114,8 +185,50 @@ class __$$OrderStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$OrderStateImpl extends _OrderState {
-  const _$OrderStateImpl({this.isLoading = false, this.message, this.error})
-      : super._();
+  const _$OrderStateImpl(
+      {final List<Address> addresses = const [],
+      this.currentAddress,
+      final List<Carrier> carriers = const [],
+      this.currentCarrier,
+      final List<CartItemModel> carts = const [],
+      this.isLoading = false,
+      this.message,
+      this.error})
+      : _addresses = addresses,
+        _carriers = carriers,
+        _carts = carts,
+        super._();
+
+  final List<Address> _addresses;
+  @override
+  @JsonKey()
+  List<Address> get addresses {
+    if (_addresses is EqualUnmodifiableListView) return _addresses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_addresses);
+  }
+
+  @override
+  final Address? currentAddress;
+  final List<Carrier> _carriers;
+  @override
+  @JsonKey()
+  List<Carrier> get carriers {
+    if (_carriers is EqualUnmodifiableListView) return _carriers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_carriers);
+  }
+
+  @override
+  final Carrier? currentCarrier;
+  final List<CartItemModel> _carts;
+  @override
+  @JsonKey()
+  List<CartItemModel> get carts {
+    if (_carts is EqualUnmodifiableListView) return _carts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_carts);
+  }
 
   @override
   @JsonKey()
@@ -127,7 +240,7 @@ class _$OrderStateImpl extends _OrderState {
 
   @override
   String toString() {
-    return 'OrderState(isLoading: $isLoading, message: $message, error: $error)';
+    return 'OrderState(addresses: $addresses, currentAddress: $currentAddress, carriers: $carriers, currentCarrier: $currentCarrier, carts: $carts, isLoading: $isLoading, message: $message, error: $error)';
   }
 
   @override
@@ -135,6 +248,14 @@ class _$OrderStateImpl extends _OrderState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OrderStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other._addresses, _addresses) &&
+            (identical(other.currentAddress, currentAddress) ||
+                other.currentAddress == currentAddress) &&
+            const DeepCollectionEquality().equals(other._carriers, _carriers) &&
+            (identical(other.currentCarrier, currentCarrier) ||
+                other.currentCarrier == currentCarrier) &&
+            const DeepCollectionEquality().equals(other._carts, _carts) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.message, message) || other.message == message) &&
@@ -142,7 +263,16 @@ class _$OrderStateImpl extends _OrderState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, message, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_addresses),
+      currentAddress,
+      const DeepCollectionEquality().hash(_carriers),
+      currentCarrier,
+      const DeepCollectionEquality().hash(_carts),
+      isLoading,
+      message,
+      error);
 
   @JsonKey(ignore: true)
   @override
@@ -153,11 +283,26 @@ class _$OrderStateImpl extends _OrderState {
 
 abstract class _OrderState extends OrderState {
   const factory _OrderState(
-      {final bool isLoading,
+      {final List<Address> addresses,
+      final Address? currentAddress,
+      final List<Carrier> carriers,
+      final Carrier? currentCarrier,
+      final List<CartItemModel> carts,
+      final bool isLoading,
       final String? message,
       final Error? error}) = _$OrderStateImpl;
   const _OrderState._() : super._();
 
+  @override
+  List<Address> get addresses;
+  @override
+  Address? get currentAddress;
+  @override
+  List<Carrier> get carriers;
+  @override
+  Carrier? get currentCarrier;
+  @override
+  List<CartItemModel> get carts;
   @override
   bool get isLoading;
   @override

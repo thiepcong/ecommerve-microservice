@@ -9,6 +9,8 @@ import 'modules/home/api/home_api.dart';
 import 'modules/home/repository/home_repository.dart';
 import 'modules/login/api/login_api.dart';
 import 'modules/login/repository/login_repository.dart';
+import 'modules/order/api/order_api.dart';
+import 'modules/order/repository/order_repository.dart';
 import 'modules/product_detail/api/product_detail_api.dart';
 import 'modules/product_detail/repository/product_detail_repository.dart';
 import 'modules/user_info/api/user_info_api.dart';
@@ -51,6 +53,9 @@ class _RouteAppState extends State<RouteApp> {
         ),
         RepositoryProvider<CartRepository>(
           create: (context) => CartRepository(CartApi()),
+        ),
+        RepositoryProvider<OrderRepository>(
+          create: (context) => OrderRepository(OrderApi()),
         ),
       ],
       child: MaterialApp.router(

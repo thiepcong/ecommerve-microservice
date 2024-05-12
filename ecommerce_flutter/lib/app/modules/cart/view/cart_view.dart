@@ -58,18 +58,20 @@ class _CartViewState extends State<CartView> {
                   padding: EdgeInsets.zero,
                   offset: const Offset(0, 50),
                   color: AppColors.colorFFFFFFFF,
-                  icon: const Row(
+                  icon: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person,
                         color: AppColors.colorFFFFFFFF,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
-                        "Thiệp",
+                        state.user != null
+                            ? "${state.user!.firstName} ${state.user!.lastName}"
+                            : "",
                         style: TextStyles.regularWhiteS16,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                     ],
                   ),
                   onSelected: (value) async {
@@ -171,7 +173,12 @@ class _CartViewState extends State<CartView> {
                           value: isChooseAll,
                           onChanged: (e) => cubit.handleChooseAll(e),
                           carts: state.carts,
-                          onBuy: () {},
+                          onBuy: () {
+                            context.pushRoute(OrderViewRoute(
+                                carts: state.carts
+                                    .where((element) => element.isChoose)
+                                    .toList()));
+                          },
                         ),
                       ],
                     ),

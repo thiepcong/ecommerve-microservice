@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/base/base_remote_source.dart';
+import '../../../core/models/address.dart';
 import '../../../core/models/user.dart';
 import '../../../core/values/api_url_constant.dart';
 
@@ -70,6 +71,52 @@ class UserInfoApi extends BaseRemoteSource {
     try {
       return callApiWithErrorParser(request)
           .then((value) => value.data['message']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Address>> getAllAddress() async {
+    final request = dioClient.get(ApiUrlConstants.address);
+    try {
+      return callApiWithErrorParser(request).then((value) =>
+          (value.data as List).map((e) => Address.fromJson(e)).toList());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Address> addAddress({required Address address}) async {
+    final request = dioClient.post(
+      ApiUrlConstants.address,
+      data: address.toJson(),
+    );
+    try {
+      return callApiWithErrorParser(request)
+          .then((value) => Address.fromJson(value.data));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Address> updateAddress({required Address address}) async {
+    final request = dioClient.put(
+      ApiUrlConstants.addressDetail(address.id),
+      data: address.toJson(),
+    );
+    try {
+      return callApiWithErrorParser(request)
+          .then((value) => Address.fromJson(value.data));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> deleteAddress({required Address address}) async {
+    final request = dioClient.delete(ApiUrlConstants.addressDetail(address.id));
+    try {
+      return callApiWithErrorParser(request)
+          .then((value) => "Đã xoá thành công");
     } catch (e) {
       rethrow;
     }

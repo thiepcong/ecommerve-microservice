@@ -1,6 +1,7 @@
 import 'package:ecommerce_flutter/app/network/exceptions/bad_request_exception.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/models/address.dart';
 import '../../../core/models/user.dart';
 import '../repository/user_info_repository.dart';
 import 'user_info_state.dart';
@@ -38,6 +39,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
         password: '',
         position: -1);
     emit(state.copyWith(user: user, isLoading: false));
+    getAllAddress();
   }
 
   void changeInfo(
@@ -95,5 +97,67 @@ class UserInfoCubit extends Cubit<UserInfoState> {
 
   void setFilter(int filter) {
     emit(state.copyWith(filter: filter));
+  }
+
+  void getAllAddress() async {
+    try {
+      emit(state.copyWith(isLoading: true, message: null));
+      final res = await _repo.getAllAddress();
+      emit(state.copyWith(addresses: res, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, message: "Đã có lỗi xảy ra"));
+      rethrow;
+    }
+  }
+
+  void addAddress(Address address) async {
+    try {
+      emit(state.copyWith(isLoading: true, message: null));
+      final res = await _repo.addAddress(address: address);
+      List<Address> li = List.from(state.addresses);
+      li.add(res);
+      emit(state.copyWith(
+        addresses: li,
+        isLoading: false,
+        message: "Thêm địa chỉ thành công",
+      ));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, message: "Đã có lỗi xảy ra"));
+      rethrow;
+    }
+  }
+
+  void updateAddress(Address address, int index) async {
+    try {
+      emit(state.copyWith(isLoading: true, message: null));
+      final res = await _repo.updateAddress(address: address);
+      List<Address> li = List.from(state.addresses);
+      li[index] = res;
+      emit(state.copyWith(
+        addresses: li,
+        isLoading: false,
+        message: "Sửa địa chỉ thành công",
+      ));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, message: "Đã có lỗi xảy ra"));
+      rethrow;
+    }
+  }
+
+  void deleteAddress(Address address) async {
+    try {
+      emit(state.copyWith(isLoading: true, message: null));
+      final res = await _repo.deleteAddress(address: address);
+      List<Address> li = List.from(state.addresses);
+      li.remove(address);
+      emit(state.copyWith(
+        addresses: li,
+        isLoading: false,
+        message: res,
+      ));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, message: "Đã có lỗi xảy ra"));
+      rethrow;
+    }
   }
 }

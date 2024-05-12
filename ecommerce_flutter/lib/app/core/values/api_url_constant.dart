@@ -22,4 +22,11 @@ class ApiUrlConstants {
 
   static String deleteCartItem(String userId, String productId) =>
       '$baseUrl:4004/api/ecomSys/cart/delete/$userId/$productId/';
+
+  static String address = '$baseUrl:4006/api/ecomSys/shipment/shipment-info';
+
+  static String addressDetail(int id) =>
+      '$baseUrl:4006/api/ecomSys/shipment/shipment-info/$id';
+
+  static String carrier = '$baseUrl:4006/api/ecomSys/shipment/carrier';
 }

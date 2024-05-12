@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserInfoState {
   bool get isLoading => throw _privateConstructorUsedError;
   int get filter => throw _privateConstructorUsedError;
+  List<Address> get addresses => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
@@ -34,7 +35,12 @@ abstract class $UserInfoStateCopyWith<$Res> {
       _$UserInfoStateCopyWithImpl<$Res, UserInfoState>;
   @useResult
   $Res call(
-      {bool isLoading, int filter, User? user, String? message, Error? error});
+      {bool isLoading,
+      int filter,
+      List<Address> addresses,
+      User? user,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -52,6 +58,7 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
   $Res call({
     Object? isLoading = null,
     Object? filter = null,
+    Object? addresses = null,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -65,6 +72,10 @@ class _$UserInfoStateCopyWithImpl<$Res, $Val extends UserInfoState>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as int,
+      addresses: null == addresses
+          ? _value.addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -90,7 +101,12 @@ abstract class _$$UserInfoStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool isLoading, int filter, User? user, String? message, Error? error});
+      {bool isLoading,
+      int filter,
+      List<Address> addresses,
+      User? user,
+      String? message,
+      Error? error});
 }
 
 /// @nodoc
@@ -106,6 +122,7 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? filter = null,
+    Object? addresses = null,
     Object? user = freezed,
     Object? message = freezed,
     Object? error = freezed,
@@ -119,6 +136,10 @@ class __$$UserInfoStateImplCopyWithImpl<$Res>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as int,
+      addresses: null == addresses
+          ? _value._addresses
+          : addresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -141,10 +162,12 @@ class _$UserInfoStateImpl extends _UserInfoState {
   const _$UserInfoStateImpl(
       {this.isLoading = false,
       this.filter = 0,
+      final List<Address> addresses = const [],
       this.user,
       this.message,
       this.error})
-      : super._();
+      : _addresses = addresses,
+        super._();
 
   @override
   @JsonKey()
@@ -152,6 +175,15 @@ class _$UserInfoStateImpl extends _UserInfoState {
   @override
   @JsonKey()
   final int filter;
+  final List<Address> _addresses;
+  @override
+  @JsonKey()
+  List<Address> get addresses {
+    if (_addresses is EqualUnmodifiableListView) return _addresses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_addresses);
+  }
+
   @override
   final User? user;
   @override
@@ -161,7 +193,7 @@ class _$UserInfoStateImpl extends _UserInfoState {
 
   @override
   String toString() {
-    return 'UserInfoState(isLoading: $isLoading, filter: $filter, user: $user, message: $message, error: $error)';
+    return 'UserInfoState(isLoading: $isLoading, filter: $filter, addresses: $addresses, user: $user, message: $message, error: $error)';
   }
 
   @override
@@ -172,14 +204,16 @@ class _$UserInfoStateImpl extends _UserInfoState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.filter, filter) || other.filter == filter) &&
+            const DeepCollectionEquality()
+                .equals(other._addresses, _addresses) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isLoading, filter, user, message, error);
+  int get hashCode => Object.hash(runtimeType, isLoading, filter,
+      const DeepCollectionEquality().hash(_addresses), user, message, error);
 
   @JsonKey(ignore: true)
   @override
@@ -192,6 +226,7 @@ abstract class _UserInfoState extends UserInfoState {
   const factory _UserInfoState(
       {final bool isLoading,
       final int filter,
+      final List<Address> addresses,
       final User? user,
       final String? message,
       final Error? error}) = _$UserInfoStateImpl;
@@ -201,6 +236,8 @@ abstract class _UserInfoState extends UserInfoState {
   bool get isLoading;
   @override
   int get filter;
+  @override
+  List<Address> get addresses;
   @override
   User? get user;
   @override

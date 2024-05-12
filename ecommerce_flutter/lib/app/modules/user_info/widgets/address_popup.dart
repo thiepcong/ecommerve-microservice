@@ -1,26 +1,48 @@
 import 'package:ecommerce_flutter/app/core/widgets/button/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/models/address.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 
 class AddressPopup extends StatefulWidget {
-  const AddressPopup({super.key});
+  const AddressPopup({
+    super.key,
+    this.address,
+    this.onDone,
+  });
+
+  final Address? address;
+  final void Function(Address address)? onDone;
 
   @override
   State<AddressPopup> createState() => _AddressPopupState();
 }
 
 class _AddressPopupState extends State<AddressPopup> {
-  final _nameController = TextEditingController();
+  final _fnameController = TextEditingController();
+  final _lnameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.address != null) {
+      _fnameController.text = widget.address!.fname;
+      _lnameController.text = widget.address!.lname;
+      _phoneController.text = widget.address!.mobile;
+      _addressController.text = widget.address!.address;
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {
     _addressController.dispose();
     _phoneController.dispose();
-    _nameController.dispose();
+    _fnameController.dispose();
+    _lnameController.dispose();
     super.dispose();
   }
 
@@ -35,11 +57,11 @@ class _AddressPopupState extends State<AddressPopup> {
         color: AppColors.colorFFFFFFFF,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Địa chỉ mới",
+          Text(
+            widget.address == null ? "Địa chỉ mới" : "Sửa địa chỉ",
             style: TextStyles.mediumBlackS20,
           ),
           const SizedBox(height: 24),
@@ -48,10 +70,10 @@ class _AddressPopupState extends State<AddressPopup> {
               Flexible(
                 flex: 1,
                 child: TextFormField(
-                  controller: _nameController,
+                  controller: _fnameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Họ và tên',
+                    labelText: 'Họ',
                   ),
                 ),
               ),
@@ -59,14 +81,22 @@ class _AddressPopupState extends State<AddressPopup> {
               Flexible(
                 flex: 1,
                 child: TextFormField(
-                  controller: _phoneController,
+                  controller: _lnameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Số điện thoại',
+                    labelText: 'Tên',
                   ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 24),
+          TextFormField(
+            controller: _phoneController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Số điện thoại',
+            ),
           ),
           const SizedBox(height: 24),
           TextFormField(
@@ -94,7 +124,20 @@ class _AddressPopupState extends State<AddressPopup> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.1,
                 child: PrimaryButton(
-                  onTap: () {},
+                  onTap: () async {
+                    final pre = await SharedPreferences.getInstance();
+                    final email = pre.getString("email") ?? '';
+                    widget.onDone?.call(Address(
+                      id: widget.address?.id ?? -1,
+                      fname: _fnameController.text,
+                      lname: _lnameController.text,
+                      email: email,
+                      mobile: _phoneController.text,
+                      address: _addressController.text,
+                    ));
+                    if (!mounted) return;
+                    Navigator.of(context).pop();
+                  },
                   title: "Hoàn thành",
                   backgroundColor: AppColors.colorFFf7472f,
                   textColor: AppColors.colorFFFFFFFF,
