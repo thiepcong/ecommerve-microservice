@@ -6,6 +6,11 @@ from shipment_service.models import Carriers, Shipment, ShipmentInfo, Transactio
 from shipment_service.serializers import CarriersSerializer, ShipmentInfoSerializer, ShipmentSerializer, TransactionSerializer
 
 class ShipmentInfoView(APIView):
+    def get(self, request):
+        shipment_infos = ShipmentInfo.objects.filter(is_active=True)
+        serializer = ShipmentInfoSerializer(shipment_infos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     def post(self, request):
         serializer = ShipmentInfoSerializer(data=request.data)
         if serializer.is_valid():
@@ -65,6 +70,11 @@ class TransactionView(APIView):
         return Response({'message': 'Transaction soft deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 class CarriersView(APIView):
+    def get(self, request):
+        cariers_infos = Carriers.objects.filter(is_active=True)
+        serializer = CarriersSerializer(cariers_infos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     def post(self, request):
         serializer = CarriersSerializer(data=request.data)
         if serializer.is_valid():
@@ -96,6 +106,7 @@ class CarriersView(APIView):
 class ShipmentView(APIView):
     def post(self, request):
         serializer = ShipmentSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

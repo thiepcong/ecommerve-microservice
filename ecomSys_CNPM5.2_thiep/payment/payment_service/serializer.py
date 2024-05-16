@@ -5,7 +5,7 @@ from payment_service.models import Payment, PaymentMethod
 class PaymentMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentMethod
-        fields = ['name', 'is_active']
+        fields = ['id', 'name', 'is_active']
     
     def destroy(self, instance):
         instance.is_active = False

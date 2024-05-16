@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 PORT = 4007
 
-
+PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = 'sb-cxeny30793285@business.example.com'
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'payment_service',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [

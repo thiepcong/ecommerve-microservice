@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from payment_service.views import PaymentMethodView, PaymentView
+from payment_service.views import PaymentMethodView, PaymentView, PaymentProcessAPIView, PaymentSuccessAPIView, PaymentCancelAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,8 @@ urlpatterns = [
     path('api/ecomSys/payment/payment-method/<int:id>', PaymentMethodView.as_view()),
     path('api/ecomSys/payment', PaymentView.as_view()),
     path('api/ecomSys/payment/<int:id>', PaymentView.as_view()),
+    path('api/ecomSys/payment/process/', PaymentProcessAPIView.as_view(), name='payment_process'),
+    path('api/ecomSys/payment/success/', PaymentSuccessAPIView.as_view(), name='payment_success'),
+    path('api/ecomSys/payment/cancel/', PaymentCancelAPIView.as_view(), name='payment_cancel'),
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]

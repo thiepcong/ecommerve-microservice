@@ -12,7 +12,7 @@ class OrderDetailView(APIView):
             orders_data = []
             for order in orders:
                 order_items_data = []
-                for order_item in order.order_items:
+                for order_item in order.order_items.all():
                     product = self.get_product(order_item.type, order_item.product_id)
                     if product:
                         order_items_data.append({
@@ -22,6 +22,7 @@ class OrderDetailView(APIView):
                             'product': product
                         })
                 orders_data.append({
+                    'id': order.id,
                     'date_ordered': order.date_ordered,
                     'total': order.total,
                     'status': order.status,
@@ -52,14 +53,20 @@ class AddOrderView(APIView):
         shipment_data = request.data.get('shipment', {})
         payment_data = request.data.get('payment', {})
         serializer = OrderAddSerializer(data=order_data)
-
+        
         if serializer.is_valid():
             order = serializer.save()
+            payment_data["order_id"] = order.id
+            payment_data["total"] = order.total
+            payment_data["status"] = order.status
+
             payment = self.add_payment(payment_data)
             if payment:
                 payment_status = payment.get('status', None)
-                if payment_status:
-                    shipment_data['payment_status'] = payment_status
+                # if payment_status:
+                shipment_data['payment_status'] = payment_status
+                shipment_data["order_id"] = order.id
+
                 shipment = self.add_shipment(shipment_data)
                 if shipment:
                     return Response(serializer.data, status=status.HTTP_201_CREATED)

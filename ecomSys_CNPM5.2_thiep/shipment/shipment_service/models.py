@@ -25,9 +25,9 @@ class Carriers(models.Model):
 
 class Shipment(models.Model):
     order_id =  models.IntegerField()
-    shipment_status = models.CharField(max_length=20)
+    shipment_status = models.BooleanField(default=False)
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
-    payment_status = models.CharField(max_length=15)
+    payment_status = models.BooleanField(default=False)
     shipment_info = models.ForeignKey(ShipmentInfo, on_delete=models.CASCADE)
     carrier = models.ForeignKey(Carriers, on_delete=models.CASCADE)
     

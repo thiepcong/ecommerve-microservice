@@ -16,15 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from user_info.views import UpdateProfileView, UserInfoView
-from user_login.views import ChangePasswordView, LoginView
-from user_model.views import RegisterView
+from user_info.views import ChangePasswordView, ChangeProfileView
+from user_login.views import RegisterView, LoginView
+from user_model.views import UserDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/ecomSys/user/register/', RegisterView.as_view()),
     path('api/ecomSys/user/login/', LoginView.as_view()),
-    path('api/ecomSys/user/info/<str:user_id>', UserInfoView.as_view()),
+    path('api/ecomSys/user/info/<str:user_id>', UserDetailView.as_view()),
     path('api/ecomSys/user/change/<str:user_id>', ChangePasswordView.as_view()),
-    path('api/ecomSys/user/update/<str:user_id>', UpdateProfileView.as_view()),
+    path('api/ecomSys/user/update/<str:user_id>', ChangeProfileView.as_view()),
 ]

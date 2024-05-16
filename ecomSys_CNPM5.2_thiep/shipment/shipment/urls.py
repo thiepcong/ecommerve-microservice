@@ -26,6 +26,6 @@ urlpatterns = [
     path('api/ecomSys/shipment/transaction/<int:id>', TransactionView.as_view()),
     path('api/ecomSys/shipment/carrier', CarriersView.as_view()),
     path('api/ecomSys/shipment/carrier/<int:id>', CarriersView.as_view()),
-    path('api/ecomSys/shipment/', ShipmentView.as_view()),
+    path('api/ecomSys/shipment', ShipmentView.as_view()),
     path('api/ecomSys/shipment/<int:id>', ShipmentView.as_view()),
 ]

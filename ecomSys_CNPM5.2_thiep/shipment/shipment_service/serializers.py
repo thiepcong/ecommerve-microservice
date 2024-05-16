@@ -5,7 +5,7 @@ from shipment_service.models import Carriers, Shipment, ShipmentInfo, Transactio
 class ShipmentInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShipmentInfo
-        fields = ['fname', 'lname', 'email', 'mobile', 'address', 'is_active']
+        fields = ['id', 'fname', 'lname', 'email', 'mobile', 'address', 'is_active']
     
     def update(self, instance, validated_data):
         instance.fname = validated_data.get('fname')
@@ -42,7 +42,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 class CarriersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carriers
-        fields = ['name', 'price', 'address', 'is_active', 'email', 'mobile', 'des']
+        fields = ['id', 'name', 'price', 'address', 'is_active', 'email', 'mobile', 'des']
     
     def update(self, instance, validated_data):
         instance.price = validated_data.get('price')

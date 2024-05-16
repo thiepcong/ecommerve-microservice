@@ -19,26 +19,28 @@ class OrderAddSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['user_id', 'order_items']
+        fields = ['id', 'user_id', 'order_items']
 
     def create(self, validated_data):
         order_items_data = validated_data.pop('order_items')
         total = 0
 
-        # Tạo đơn hàng trước khi tạo các order item
-        order = Order.objects.create(**validated_data)
-
-        # Tạo và tính tổng số tiền từ các order item
+        # Tính tổng số tiền từ các order item
         for item_data in order_items_data:
             price = item_data['price']
             sale = item_data['sale']
-            total += price * (1 - sale / 100)
-            OrderItem.objects.create(order=order, **item_data)
-        
-        # Cập nhật tổng số tiền cho đơn hàng
-        order.total = total
-        order.save()
+            quantity = item_data['quantity']
+            total += price * quantity - sale
+
+        # Tạo đơn hàng với tổng số tiền đã tính
+        order = Order.objects.create(total=total, **validated_data)
+
+        # Tạo các order item và liên kết với đơn hàng
+        order_items = []
+        for item_data in order_items_data:
+            order_item = OrderItem.objects.create(**item_data)
+            order_items.append(order_item)
+        # Thiết lập mối quan hệ ManyToMany
+        order.order_items.add(*order_items)
 
         return order
-
-
