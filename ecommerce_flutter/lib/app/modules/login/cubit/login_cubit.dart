@@ -22,7 +22,10 @@ class LoginCubit extends Cubit<LoginState> {
       await pre.setString("email", res.email);
       await pre.setString("mobile", res.mobile);
       await pre.setString("dob", res.dob.toString());
-      await pre.setString("address", res.address);
+      await pre.setString("province", res.province);
+      await pre.setString("district", res.district);
+      await pre.setString("ward", res.ward);
+      await pre.setString("street", res.street);
       emit(state.copyWith(
         authDone: true,
         isLoading: false,
@@ -43,24 +46,30 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void register(
-    String firseName,
+    String firstName,
     String lastName,
     String phoneNumber,
     String email,
     String password,
-    String address,
+    String province,
+    String district,
+    String ward,
+    String street,
     DateTime dob,
     int position,
   ) async {
     try {
       emit(state.copyWith(message: null, isLoading: true));
       final res = await _loginRepository.register(
-        firstName: firseName,
+        firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
         email: email,
         password: password,
-        address: address,
+        province: province,
+        district: district,
+        ward: ward,
+        street: street,
         dob: dob,
         position: position,
       );
@@ -71,7 +80,10 @@ class LoginCubit extends Cubit<LoginState> {
       await pre.setString("email", res.email);
       await pre.setString("mobile", res.mobile);
       await pre.setString("dob", res.dob.toString());
-      await pre.setString("address", res.address);
+      await pre.setString("province", res.province);
+      await pre.setString("district", res.district);
+      await pre.setString("ward", res.ward);
+      await pre.setString("street", res.street);
       emit(state.copyWith(
         authDone: true,
         isLoading: false,

@@ -89,6 +89,12 @@ class _HomeViewState extends State<HomeView> {
                         break;
                       case 2:
                         context.router.pushAndPopUntil(
+                          const PurchaseViewRoute(),
+                          predicate: (_) => false,
+                        );
+                        break;
+                      case 3:
+                        context.router.pushAndPopUntil(
                           const LoginViewRoute(),
                           predicate: (_) => false,
                         );
@@ -110,6 +116,14 @@ class _HomeViewState extends State<HomeView> {
                       const PopupMenuItem(
                         padding: EdgeInsets.zero,
                         value: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Text("Đơn mua"),
+                        ),
+                      ),
+                      const PopupMenuItem(
+                        padding: EdgeInsets.zero,
+                        value: 3,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Text("Đăng xuất"),
@@ -134,7 +148,10 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Column(
                     children: [
-                      AppBarHome(onSearch: (e) => cubit.search(e)),
+                      AppBarHome(
+                        onSearch: (e) => cubit.search(e),
+                        onVoiceSearch: () => cubit.startListening(),
+                      ),
                       // Expanded(child: Size)
                       Padding(
                         padding: const EdgeInsets.only(top: 18),

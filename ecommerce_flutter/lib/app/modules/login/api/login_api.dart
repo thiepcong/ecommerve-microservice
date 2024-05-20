@@ -29,18 +29,30 @@ class LoginApi extends BaseRemoteSource {
     required String phoneNumber,
     required String email,
     required String password,
-    required String address,
+    required String province,
+    required String district,
+    required String ward,
+    required String street,
     required DateTime dob,
     required int position,
   }) async {
     final request = dioClient.post(ApiUrlConstants.register, data: {
       "id": Random().nextInt(100000).toString(),
-      "fname": firstName,
-      "lname": lastName,
+      "full_name": {
+        "fname": firstName,
+        "lname": lastName,
+      },
       "mobile": phoneNumber,
-      "email": email,
-      "password": password,
-      "address": address,
+      "account": {
+        "email": email,
+        "password": password,
+      },
+      "address": {
+        "province": province,
+        "district": district,
+        "ward": ward,
+        "street": street
+      },
       "dob": DateFormat('yyyy-MM-dd').format(dob),
       "position": position,
     });

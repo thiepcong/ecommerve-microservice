@@ -15,7 +15,10 @@ class LoginRepository {
     required String phoneNumber,
     required String email,
     required String password,
-    required String address,
+    required String province,
+    required String district,
+    required String ward,
+    required String street,
     required DateTime dob,
     required int position,
   }) async {
@@ -25,7 +28,10 @@ class LoginRepository {
       phoneNumber: phoneNumber,
       email: email,
       password: password,
-      address: address,
+      province: province,
+      district: district,
+      ward: ward,
+      street: street,
       dob: dob,
       position: position,
     );

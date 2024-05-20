@@ -20,21 +20,30 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     final email = pre.getString("email");
     final mobile = pre.getString("mobile");
     final dob = pre.getString("dob");
-    final address = pre.getString("address");
+    final province = pre.getString("province");
+    final district = pre.getString("district");
+    final ward = pre.getString("ward");
+    final street = pre.getString("street");
     if (userId == null ||
         lastName == null ||
         firstName == null ||
         email == null ||
         mobile == null ||
         dob == null ||
-        address == null) return;
+        province == null ||
+        district == null ||
+        ward == null ||
+        street == null) return;
     final user = User(
         id: userId,
         email: email,
         firstName: firstName,
         lastName: lastName,
         mobile: mobile,
-        address: address,
+        province: province,
+        district: district,
+        street: street,
+        ward: ward,
         dob: DateTime.parse(dob),
         password: '',
         position: -1);
@@ -46,7 +55,10 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     String firstName,
     String lastName,
     String mobile,
-    String address,
+    String province,
+    String district,
+    String ward,
+    String street,
     DateTime dob,
   ) async {
     try {
@@ -55,7 +67,10 @@ class UserInfoCubit extends Cubit<UserInfoState> {
         firstName: firstName,
         lastName: lastName,
         mobile: mobile,
-        address: address,
+        province: province,
+        district: district,
+        ward: ward,
+        street: street,
         dob: dob,
       );
       final pre = await SharedPreferences.getInstance();
@@ -63,7 +78,10 @@ class UserInfoCubit extends Cubit<UserInfoState> {
       await pre.setString("firstName", res.firstName);
       await pre.setString("mobile", res.mobile);
       await pre.setString("dob", res.dob.toString());
-      await pre.setString("address", res.address);
+      await pre.setString("province", res.province);
+      await pre.setString("district", res.district);
+      await pre.setString("ward", res.ward);
+      await pre.setString("street", res.street);
       emit(state.copyWith(
         user: res,
         isLoading: false,

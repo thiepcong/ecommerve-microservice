@@ -14,6 +14,7 @@ class HomeState with _$HomeState {
     @Default([]) List<Product> products,
     String? filter,
     User? user,
+    String? searchKey,
     String? message,
     Error? error,
   }) = _HomeState;

@@ -11,7 +11,10 @@ class UserInfoApi extends BaseRemoteSource {
     required String firstName,
     required String lastName,
     required String mobile,
-    required String address,
+    required String province,
+    required String district,
+    required String ward,
+    required String street,
     required DateTime dob,
   }) async {
     final pre = await SharedPreferences.getInstance();
@@ -19,10 +22,17 @@ class UserInfoApi extends BaseRemoteSource {
     final request = dioClient.put(
       ApiUrlConstants.updateUserInfo(userId ?? ''),
       data: {
-        "fname": firstName,
-        "lname": lastName,
+        "full_name": {
+          "fname": firstName,
+          "lname": lastName,
+        },
         "mobile": mobile,
-        'address': address,
+        "address": {
+          "province": province,
+          "district": district,
+          "ward": ward,
+          "street": street
+        },
         "dob": DateFormat('yyyy-MM-dd').format(dob),
       },
     );
@@ -33,7 +43,10 @@ class UserInfoApi extends BaseRemoteSource {
       final firstName1 = pre.getString("firstName");
       final email1 = pre.getString("email");
       final mobile1 = pre.getString("mobile");
-      final address1 = pre.getString("address");
+      final province1 = pre.getString("province");
+      final district1 = pre.getString("district");
+      final ward1 = pre.getString("ward");
+      final street1 = pre.getString("street");
       final dob1 = pre.getString("dob");
       final user = User(
         id: userId ?? '',
@@ -41,7 +54,10 @@ class UserInfoApi extends BaseRemoteSource {
         firstName: firstName1 ?? '',
         lastName: lastName1 ?? '',
         mobile: mobile1 ?? '',
-        address: address1 ?? '',
+        district: district1 ?? '',
+        province: province1 ?? '',
+        street: street1 ?? '',
+        ward: ward1 ?? '',
         dob: DateTime.parse(dob1 ?? ''),
         password: '',
         position: -1,
@@ -49,8 +65,11 @@ class UserInfoApi extends BaseRemoteSource {
       return callApiWithErrorParser(request).then((value) => user.copyWith(
             firstName: firstName,
             lastName: lastName,
-            address: address,
             dob: dob,
+            district: district,
+            province: province,
+            ward: ward,
+            street: street,
           ));
     } catch (e) {
       rethrow;

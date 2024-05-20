@@ -24,7 +24,10 @@ class _RegisterViewState extends State<RegisterView> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _provinceController = TextEditingController();
+  final _districtController = TextEditingController();
+  final _wardController = TextEditingController();
+  final _streetController = TextEditingController();
   final _dobController = TextEditingController();
   final _positionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,7 +39,10 @@ class _RegisterViewState extends State<RegisterView> {
     _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _addressController.dispose();
+    _provinceController.dispose();
+    _districtController.dispose();
+    _wardController.dispose();
+    _streetController.dispose();
     _dobController.dispose();
     _positionController.dispose();
     super.dispose();
@@ -139,23 +145,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Họ',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập họ của bạn!';
@@ -173,23 +162,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Tên',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập tên người dùng!';
@@ -207,23 +179,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Số điện thoại',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập tên người dùng!';
@@ -241,23 +196,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Email',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập email!';
@@ -277,23 +215,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Mật khẩu',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập mật khẩu!';
@@ -306,28 +227,62 @@ class _RegisterViewState extends State<RegisterView> {
                               SizedBox(
                                 width: double.infinity,
                                 child: TextFormField(
-                                  controller: _addressController,
+                                  controller: _provinceController,
                                   decoration: const InputDecoration(
-                                    labelText: 'Địa chỉ',
+                                    labelText: 'Tỉnh/Thành phố',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập địa chỉ!';
                                     }
+                                    return null;
                                   },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _districtController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Quận/Huyện',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập địa chỉ!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _wardController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Xã/Phường',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Vui lòng nhập địa chỉ!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _streetController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Đường',
+                                    border: OutlineInputBorder(),
+                                  ),
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập địa chỉ!';
@@ -355,23 +310,6 @@ class _RegisterViewState extends State<RegisterView> {
                                       icon: const Icon(Icons.calendar_month),
                                     ),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập ngày sinh!';
@@ -389,23 +327,6 @@ class _RegisterViewState extends State<RegisterView> {
                                     labelText: 'Position',
                                     border: OutlineInputBorder(),
                                   ),
-                                  onFieldSubmitted: (e) {
-                                    if (_formKey.currentState!.validate()) {
-                                      cubit.register(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _phoneController.text,
-                                        _emailController.text,
-                                        _passwordController.text,
-                                        _addressController.text,
-                                        DateFormat("dd/MM/yyyy")
-                                            .parse(_dobController.text),
-                                        int.tryParse(
-                                                _positionController.text) ??
-                                            -1,
-                                      );
-                                    }
-                                  },
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Vui lòng nhập po!';
@@ -425,7 +346,10 @@ class _RegisterViewState extends State<RegisterView> {
                                       _phoneController.text,
                                       _emailController.text,
                                       _passwordController.text,
-                                      _addressController.text,
+                                      _provinceController.text,
+                                      _districtController.text,
+                                      _wardController.text,
+                                      _streetController.text,
                                       DateFormat("dd/MM/yyyy")
                                           .parse(_dobController.text),
                                       int.tryParse(_positionController.text) ??

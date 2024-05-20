@@ -25,5 +25,5 @@ class User(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     full_name = models.ForeignKey(FullName, on_delete=models.CASCADE)
     
-    def __str__(self):
-        return self.fname + " " + self.lname
+    # def __str__(self):
+    #     return self.fname + " " + self.lname

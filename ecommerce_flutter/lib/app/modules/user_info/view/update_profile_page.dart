@@ -19,7 +19,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _addressController = TextEditingController();
+  final _provinceController = TextEditingController();
+  final _districtController = TextEditingController();
+  final _wardController = TextEditingController();
+  final _streetController = TextEditingController();
   final _dobController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -28,7 +31,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _phoneController.dispose();
-    _addressController.dispose();
+    _provinceController.dispose();
+    _districtController.dispose();
+    _wardController.dispose();
+    _streetController.dispose();
     _dobController.dispose();
     super.dispose();
   }
@@ -53,7 +59,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return BlocListener<UserInfoCubit, UserInfoState>(
       listenWhen: (previous, current) => previous.user != current.user,
       listener: (context, state) {
-        _addressController.text = state.user?.address ?? '';
+        _districtController.text = state.user?.district ?? '';
+        _provinceController.text = state.user?.province ?? '';
+        _wardController.text = state.user?.ward ?? '';
+        _streetController.text = state.user?.street ?? '';
         _firstNameController.text = state.user?.firstName ?? "";
         _lastNameController.text = state.user?.lastName ?? '';
         _phoneController.text = state.user?.mobile ?? '';
@@ -130,9 +139,63 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        controller: _addressController,
+                        controller: _provinceController,
                         decoration: const InputDecoration(
-                          labelText: 'Địa chỉ',
+                          labelText: 'Tỉnh/Thành phố',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Vui lòng nhập địa chỉ!';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        controller: _districtController,
+                        decoration: const InputDecoration(
+                          labelText: 'Quận/Huyện',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Vui lòng nhập địa chỉ!';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        controller: _wardController,
+                        decoration: const InputDecoration(
+                          labelText: 'Phường/Xã',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Vui lòng nhập địa chỉ!';
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        controller: _streetController,
+                        decoration: const InputDecoration(
+                          labelText: 'Đường',
                           border: OutlineInputBorder(),
                         ),
                         validator: (value) {
@@ -176,7 +239,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         _firstNameController.text,
                         _lastNameController.text,
                         _phoneController.text,
-                        _addressController.text,
+                        _provinceController.text,
+                        _districtController.text,
+                        _wardController.text,
+                        _streetController.text,
                         DateFormat('dd/MM/yyyy').parse(_dobController.text),
                       ),
                       title: 'Lưu thay đổi',

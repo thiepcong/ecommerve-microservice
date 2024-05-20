@@ -11,8 +11,12 @@ import 'modules/login/api/login_api.dart';
 import 'modules/login/repository/login_repository.dart';
 import 'modules/order/api/order_api.dart';
 import 'modules/order/repository/order_repository.dart';
+import 'modules/order_handle/api/order_handle_api.dart';
+import 'modules/order_handle/repository/order_handle_repository.dart';
 import 'modules/product_detail/api/product_detail_api.dart';
 import 'modules/product_detail/repository/product_detail_repository.dart';
+import 'modules/purchase/api/purchase_api.dart';
+import 'modules/purchase/repository/purchase_repository.dart';
 import 'modules/user_info/api/user_info_api.dart';
 import 'modules/user_info/repository/user_info_repository.dart';
 
@@ -56,6 +60,12 @@ class _RouteAppState extends State<RouteApp> {
         ),
         RepositoryProvider<OrderRepository>(
           create: (context) => OrderRepository(OrderApi()),
+        ),
+        RepositoryProvider<PurchaseRepository>(
+          create: (context) => PurchaseRepository(PurchaseApi()),
+        ),
+        RepositoryProvider<OrderHandleRepository>(
+          create: (context) => OrderHandleRepository(OrderHandleApi()),
         ),
       ],
       child: MaterialApp.router(

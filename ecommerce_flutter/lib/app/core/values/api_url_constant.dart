@@ -29,4 +29,18 @@ class ApiUrlConstants {
       '$baseUrl:4006/api/ecomSys/shipment/shipment-info/$id';
 
   static String carrier = '$baseUrl:4006/api/ecomSys/shipment/carrier';
+
+  static String paymentMethod =
+      '$baseUrl:4007/api/ecomSys/payment/payment-method';
+
+  static String addOrder = '$baseUrl:4005/api/ecomSys/order/add/';
+
+  static String getOrderByUser(String userId) =>
+      '$baseUrl:4005/api/ecomSys/order/$userId/';
+
+  static String confirmOrder(int orderId) =>
+      '$baseUrl:4005/api/ecomSys/order/confirm/$orderId/';
+
+  static String cancelOrder(int orderId) =>
+      '$baseUrl:4005/api/ecomSys/order/cancel/$orderId/';
 }

@@ -3,6 +3,7 @@ class Product {
   final String title;
   final String image;
   final double price;
+  final double sale;
   final String des;
   final int quantity;
   final String type;
@@ -15,6 +16,7 @@ class Product {
     required this.des,
     this.quantity = 0,
     this.type = '',
+    this.sale = 0,
   });
 
   Map<String, dynamic> toJson() {
@@ -48,6 +50,7 @@ class Product {
           : map.containsKey("mobile_id")
               ? 'mobile'
               : "clothes",
+      sale: map.containsKey("sale") ? map['sale'] as double : 0,
     );
   }
 }

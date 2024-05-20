@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_network/image_network.dart';
 
 import '../../../core/models/product.dart';
+import '../../../core/models/cart_item_model.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
@@ -209,7 +210,16 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                         ),
                                         const SizedBox(width: 24),
                                         CustomButton(
-                                          onTap: () {},
+                                          onTap: () {
+                                            context.pushRoute(
+                                                OrderViewRoute(carts: [
+                                              CartItemModel(
+                                                product: widget.item,
+                                                quantity: state.quantity,
+                                                isChoose: true,
+                                              )
+                                            ]));
+                                          },
                                           labelStyle: TextStyles.regularBlackS16
                                               .copyWith(
                                                   color:

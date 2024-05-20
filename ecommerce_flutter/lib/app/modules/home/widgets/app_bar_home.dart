@@ -8,9 +8,10 @@ import '../../../core/values/text_styles.dart';
 import 'tooltip_shape.dart';
 
 class AppBarHome extends StatefulWidget {
-  const AppBarHome({super.key, this.onSearch});
+  const AppBarHome({super.key, this.onSearch, this.onVoiceSearch});
 
   final void Function(String)? onSearch;
+  final VoidCallback? onVoiceSearch;
 
   @override
   State<AppBarHome> createState() => _AppBarHomeState();
@@ -61,26 +62,52 @@ class _AppBarHomeState extends State<AppBarHome> {
                     borderSide: BorderSide.none,
                   ),
                   hintText: 'Nhập để tìm kiếm...',
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      if (_formKey.currentState?.validate() ?? false) {
-                        widget.onSearch?.call(_searchController.text);
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 4),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 8),
-                      decoration: const BoxDecoration(
-                        color: AppColors.colorFFf7472f,
-                        borderRadius: BorderRadius.all(Radius.circular(2)),
-                      ),
-                      child: const Icon(
-                        Icons.search,
-                        color: AppColors.colorFFFFFFFF,
-                      ),
-                    ),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (widget.onVoiceSearch != null)
+                        InkWell(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            widget.onVoiceSearch?.call();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 4),
+                            padding: const EdgeInsets.all(8),
+                            decoration: const BoxDecoration(
+                              color: AppColors.colorFFf7472f,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.mic,
+                              color: AppColors.colorFFFFFFFF,
+                            ),
+                          ),
+                        ),
+                      const SizedBox(width: 12),
+                      InkWell(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          if (_formKey.currentState?.validate() ?? false) {
+                            widget.onSearch?.call(_searchController.text);
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 8),
+                          decoration: const BoxDecoration(
+                            color: AppColors.colorFFf7472f,
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                          ),
+                          child: const Icon(
+                            Icons.search,
+                            color: AppColors.colorFFFFFFFF,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),

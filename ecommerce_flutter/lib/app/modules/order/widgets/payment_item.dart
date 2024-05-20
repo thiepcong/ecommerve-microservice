@@ -3,6 +3,7 @@ import 'package:ecommerce_flutter/app/core/widgets/button/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/models/payment_method.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/values/text_styles.dart';
 import '../cubit/order_cubit.dart';
@@ -40,16 +41,15 @@ class PaymentItem extends StatelessWidget {
                           .copyWith(color: AppColors.colorFF000000),
                     ),
                   ),
-                  PaymentMethodItem(
-                    onTap: () => cubit,
-                    label: "Paypal",
-                    isChoose: false,
-                  ),
-                  PaymentMethodItem(
-                    onTap: () {},
-                    label: "Thanh toán khi nhận hàng",
-                    isChoose: true,
-                  ),
+                  ...state.paymentMethods
+                      .map(
+                        (e) => PaymentMethodItem(
+                          onTap: (item) => cubit.setPaymentMethod(item),
+                          item: e,
+                          isChoose: state.currentPaymentMethod?.id == e.id,
+                        ),
+                      )
+                      .toList(),
                 ],
               ),
               const SizedBox(height: 24),
@@ -117,7 +117,10 @@ class PaymentItem extends StatelessWidget {
                 child: SizedBox(
                   width: 240,
                   child: PrimaryButton(
-                    onTap: () {},
+                    onTap: () {
+                      cubit.addOrder(
+                          totalPay + (state.currentCarrier?.price ?? 0));
+                    },
                     title: "Đặt hàng",
                     backgroundColor: AppColors.colorFFf7472f,
                     textColor: AppColors.colorFFFFFFFF,
@@ -138,18 +141,18 @@ class PaymentMethodItem extends StatelessWidget {
   const PaymentMethodItem({
     super.key,
     this.onTap,
-    required this.label,
+    required this.item,
     required this.isChoose,
   });
 
-  final VoidCallback? onTap;
-  final String label;
+  final void Function(PaymentMethod item)? onTap;
+  final PaymentMethod item;
   final bool isChoose;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: onTap,
+        onTap: () => onTap?.call(item),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
           padding: const EdgeInsets.all(10),
@@ -161,7 +164,7 @@ class PaymentMethodItem extends StatelessWidget {
                     : AppColors.colorFFC5C5C5),
           ),
           child: Text(
-            label,
+            item.name,
             style: TextStyles.regularBlackS14
                 .copyWith(color: isChoose ? AppColors.colorFFf7472f : null),
           ),

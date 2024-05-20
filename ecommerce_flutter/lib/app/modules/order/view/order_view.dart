@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ecommerce_flutter/app/core/values/show_message_internal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/models/cart_item_model.dart';
 import '../../../core/values/app_colors.dart';
 import '../../../core/widgets/appBar/custom_app_bar.dart';
+import '../../../main_router.dart';
 import '../cubit/order_cubit.dart';
 import '../cubit/order_state.dart';
 import '../repository/order_repository.dart';
@@ -46,6 +48,9 @@ class _OrderViewState extends State<OrderView> {
             if (state.message != null) {
               ShowMessageInternal.showOverlay(context, state.message ?? '');
             }
+            if (state.message == "Đặt hàng thành công") {
+              context.pushRoute(const OrderHandleViewRoute());
+            }
           },
         ),
       ],
@@ -63,15 +68,26 @@ class _OrderViewState extends State<OrderView> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: const SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AddressItem(),
-                    ListProductItem(),
-                    CarriersItem(),
-                    PaymentItem(),
-                  ],
-                ),
+              child: Stack(
+                children: [
+                  const SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        AddressItem(),
+                        ListProductItem(),
+                        CarriersItem(),
+                        PaymentItem(),
+                      ],
+                    ),
+                  ),
+                  state.isLoading
+                      ? Container(
+                          color: AppColors.colorFF000000.withOpacity(0.5),
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator(),
+                        )
+                      : const SizedBox.shrink()
+                ],
               ),
             ),
           );

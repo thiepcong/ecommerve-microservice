@@ -68,6 +68,30 @@ class _$MainRouter extends RootStackRouter {
         ),
       );
     },
+    PaymentPaypalSuccessViewRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const PaymentPaypalSuccessView(),
+      );
+    },
+    PaymentPaypalCancelViewRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const PaymentPaypalCancelView(),
+      );
+    },
+    OrderHandleViewRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const OrderHandleView(),
+      );
+    },
+    PurchaseViewRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const PurchaseView(),
+      );
+    },
   };
 
   @override
@@ -105,6 +129,22 @@ class _$MainRouter extends RootStackRouter {
         RouteConfig(
           OrderViewRoute.name,
           path: 'order',
+        ),
+        RouteConfig(
+          PaymentPaypalSuccessViewRoute.name,
+          path: 'payment_paypal_success',
+        ),
+        RouteConfig(
+          PaymentPaypalCancelViewRoute.name,
+          path: 'payment_paypal_cancel',
+        ),
+        RouteConfig(
+          OrderHandleViewRoute.name,
+          path: 'order_handle',
+        ),
+        RouteConfig(
+          PurchaseViewRoute.name,
+          path: 'purchase',
         ),
       ];
 }
@@ -235,4 +275,52 @@ class OrderViewRouteArgs {
   String toString() {
     return 'OrderViewRouteArgs{key: $key, carts: $carts}';
   }
+}
+
+/// generated route for
+/// [PaymentPaypalSuccessView]
+class PaymentPaypalSuccessViewRoute extends PageRouteInfo<void> {
+  const PaymentPaypalSuccessViewRoute()
+      : super(
+          PaymentPaypalSuccessViewRoute.name,
+          path: 'payment_paypal_success',
+        );
+
+  static const String name = 'PaymentPaypalSuccessViewRoute';
+}
+
+/// generated route for
+/// [PaymentPaypalCancelView]
+class PaymentPaypalCancelViewRoute extends PageRouteInfo<void> {
+  const PaymentPaypalCancelViewRoute()
+      : super(
+          PaymentPaypalCancelViewRoute.name,
+          path: 'payment_paypal_cancel',
+        );
+
+  static const String name = 'PaymentPaypalCancelViewRoute';
+}
+
+/// generated route for
+/// [OrderHandleView]
+class OrderHandleViewRoute extends PageRouteInfo<void> {
+  const OrderHandleViewRoute()
+      : super(
+          OrderHandleViewRoute.name,
+          path: 'order_handle',
+        );
+
+  static const String name = 'OrderHandleViewRoute';
+}
+
+/// generated route for
+/// [PurchaseView]
+class PurchaseViewRoute extends PageRouteInfo<void> {
+  const PurchaseViewRoute()
+      : super(
+          PurchaseViewRoute.name,
+          path: 'purchase',
+        );
+
+  static const String name = 'PurchaseViewRoute';
 }

@@ -11,14 +11,20 @@ class UserInfoRepository {
     required String firstName,
     required String lastName,
     required String mobile,
-    required String address,
+    required String province,
+    required String district,
+    required String ward,
+    required String street,
     required DateTime dob,
   }) async {
     return _api.updateUserInfo(
       firstName: firstName,
       lastName: lastName,
       mobile: mobile,
-      address: address,
+      province: province,
+      district: district,
+      ward: ward,
+      street: street,
       dob: dob,
     );
   }

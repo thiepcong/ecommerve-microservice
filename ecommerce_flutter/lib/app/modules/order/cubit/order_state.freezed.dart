@@ -21,6 +21,8 @@ mixin _$OrderState {
   List<Carrier> get carriers => throw _privateConstructorUsedError;
   Carrier? get currentCarrier => throw _privateConstructorUsedError;
   List<CartItemModel> get carts => throw _privateConstructorUsedError;
+  PaymentMethod? get currentPaymentMethod => throw _privateConstructorUsedError;
+  List<PaymentMethod> get paymentMethods => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
@@ -42,6 +44,8 @@ abstract class $OrderStateCopyWith<$Res> {
       List<Carrier> carriers,
       Carrier? currentCarrier,
       List<CartItemModel> carts,
+      PaymentMethod? currentPaymentMethod,
+      List<PaymentMethod> paymentMethods,
       bool isLoading,
       String? message,
       Error? error});
@@ -65,6 +69,8 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
     Object? carriers = null,
     Object? currentCarrier = freezed,
     Object? carts = null,
+    Object? currentPaymentMethod = freezed,
+    Object? paymentMethods = null,
     Object? isLoading = null,
     Object? message = freezed,
     Object? error = freezed,
@@ -90,6 +96,14 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
           ? _value.carts
           : carts // ignore: cast_nullable_to_non_nullable
               as List<CartItemModel>,
+      currentPaymentMethod: freezed == currentPaymentMethod
+          ? _value.currentPaymentMethod
+          : currentPaymentMethod // ignore: cast_nullable_to_non_nullable
+              as PaymentMethod?,
+      paymentMethods: null == paymentMethods
+          ? _value.paymentMethods
+          : paymentMethods // ignore: cast_nullable_to_non_nullable
+              as List<PaymentMethod>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -120,6 +134,8 @@ abstract class _$$OrderStateImplCopyWith<$Res>
       List<Carrier> carriers,
       Carrier? currentCarrier,
       List<CartItemModel> carts,
+      PaymentMethod? currentPaymentMethod,
+      List<PaymentMethod> paymentMethods,
       bool isLoading,
       String? message,
       Error? error});
@@ -141,6 +157,8 @@ class __$$OrderStateImplCopyWithImpl<$Res>
     Object? carriers = null,
     Object? currentCarrier = freezed,
     Object? carts = null,
+    Object? currentPaymentMethod = freezed,
+    Object? paymentMethods = null,
     Object? isLoading = null,
     Object? message = freezed,
     Object? error = freezed,
@@ -166,6 +184,14 @@ class __$$OrderStateImplCopyWithImpl<$Res>
           ? _value._carts
           : carts // ignore: cast_nullable_to_non_nullable
               as List<CartItemModel>,
+      currentPaymentMethod: freezed == currentPaymentMethod
+          ? _value.currentPaymentMethod
+          : currentPaymentMethod // ignore: cast_nullable_to_non_nullable
+              as PaymentMethod?,
+      paymentMethods: null == paymentMethods
+          ? _value._paymentMethods
+          : paymentMethods // ignore: cast_nullable_to_non_nullable
+              as List<PaymentMethod>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -191,12 +217,15 @@ class _$OrderStateImpl extends _OrderState {
       final List<Carrier> carriers = const [],
       this.currentCarrier,
       final List<CartItemModel> carts = const [],
+      this.currentPaymentMethod,
+      final List<PaymentMethod> paymentMethods = const [],
       this.isLoading = false,
       this.message,
       this.error})
       : _addresses = addresses,
         _carriers = carriers,
         _carts = carts,
+        _paymentMethods = paymentMethods,
         super._();
 
   final List<Address> _addresses;
@@ -231,6 +260,17 @@ class _$OrderStateImpl extends _OrderState {
   }
 
   @override
+  final PaymentMethod? currentPaymentMethod;
+  final List<PaymentMethod> _paymentMethods;
+  @override
+  @JsonKey()
+  List<PaymentMethod> get paymentMethods {
+    if (_paymentMethods is EqualUnmodifiableListView) return _paymentMethods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_paymentMethods);
+  }
+
+  @override
   @JsonKey()
   final bool isLoading;
   @override
@@ -240,7 +280,7 @@ class _$OrderStateImpl extends _OrderState {
 
   @override
   String toString() {
-    return 'OrderState(addresses: $addresses, currentAddress: $currentAddress, carriers: $carriers, currentCarrier: $currentCarrier, carts: $carts, isLoading: $isLoading, message: $message, error: $error)';
+    return 'OrderState(addresses: $addresses, currentAddress: $currentAddress, carriers: $carriers, currentCarrier: $currentCarrier, carts: $carts, currentPaymentMethod: $currentPaymentMethod, paymentMethods: $paymentMethods, isLoading: $isLoading, message: $message, error: $error)';
   }
 
   @override
@@ -256,6 +296,10 @@ class _$OrderStateImpl extends _OrderState {
             (identical(other.currentCarrier, currentCarrier) ||
                 other.currentCarrier == currentCarrier) &&
             const DeepCollectionEquality().equals(other._carts, _carts) &&
+            (identical(other.currentPaymentMethod, currentPaymentMethod) ||
+                other.currentPaymentMethod == currentPaymentMethod) &&
+            const DeepCollectionEquality()
+                .equals(other._paymentMethods, _paymentMethods) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.message, message) || other.message == message) &&
@@ -270,6 +314,8 @@ class _$OrderStateImpl extends _OrderState {
       const DeepCollectionEquality().hash(_carriers),
       currentCarrier,
       const DeepCollectionEquality().hash(_carts),
+      currentPaymentMethod,
+      const DeepCollectionEquality().hash(_paymentMethods),
       isLoading,
       message,
       error);
@@ -288,6 +334,8 @@ abstract class _OrderState extends OrderState {
       final List<Carrier> carriers,
       final Carrier? currentCarrier,
       final List<CartItemModel> carts,
+      final PaymentMethod? currentPaymentMethod,
+      final List<PaymentMethod> paymentMethods,
       final bool isLoading,
       final String? message,
       final Error? error}) = _$OrderStateImpl;
@@ -303,6 +351,10 @@ abstract class _OrderState extends OrderState {
   Carrier? get currentCarrier;
   @override
   List<CartItemModel> get carts;
+  @override
+  PaymentMethod? get currentPaymentMethod;
+  @override
+  List<PaymentMethod> get paymentMethods;
   @override
   bool get isLoading;
   @override
