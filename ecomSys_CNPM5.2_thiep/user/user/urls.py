@@ -19,12 +19,21 @@ from django.urls import path
 from user_info.views import ChangePasswordView, ChangeProfileView
 from user_login.views import RegisterView, LoginView
 from user_model.views import UserDetailView
+from manager_service.views import ManagerLoginView, AddManagerView, ManagerInfoView, ChangePasswordManagerView, UpdateProfileManagerView, VerifyTokenView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #user
     path('api/ecomSys/user/register/', RegisterView.as_view()),
     path('api/ecomSys/user/login/', LoginView.as_view()),
     path('api/ecomSys/user/info/<str:user_id>', UserDetailView.as_view()),
     path('api/ecomSys/user/change/<str:user_id>', ChangePasswordView.as_view()),
     path('api/ecomSys/user/update/<str:user_id>', ChangeProfileView.as_view()),
+    #manager
+    path('api/ecomSys/manager/add/', AddManagerView.as_view(), name='register'),
+    path('api/ecomSys/manager/login/', ManagerLoginView.as_view(), name='login'),
+    path('api/ecomSys/manager/info/', ManagerInfoView.as_view(), name='manager-detail'),
+    path('api/ecomSys/manager/change/', ChangePasswordManagerView.as_view(), name='change'),
+    path('api/ecomSys/manager/update/', UpdateProfileManagerView.as_view(), name='update'),
+    path('api/ecomSys/manager/verify-token/', VerifyTokenView.as_view(), name='verify-token'),
 ]

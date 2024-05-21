@@ -88,13 +88,19 @@ class AddOrderView(APIView):
 class AllOrderView(APIView):
     def get(self, request):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             orders = Order.objects.all()
             orders_data = []
             for order in orders:
                 user = self.get_user(order.user_id)
                 order_items_data = []
                 if user:
-                    for order_item in order.order_items:
+                    for order_item in order.order_items.all():
                         product = self.get_product(order_item.type, order_item.product_id)
                         if product:
                             order_items_data.append({

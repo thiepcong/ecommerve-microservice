@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:ecommerce_flutter/app/core/models/address.dart';
 import 'package:ecommerce_flutter/app/core/models/carrier.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vnpay_flutter/vnpay_flutter.dart';
 import '../../../core/models/cart_item_model.dart';
 import '../../../core/models/models.dart';
 import '../../../core/models/payment_method.dart';
@@ -11,6 +14,8 @@ import '../repository/order_repository.dart';
 import 'order_state.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
 
 class OrderCubit extends Cubit<OrderState> {
   OrderCubit(this._repo) : super(const OrderState());
@@ -49,6 +54,28 @@ class OrderCubit extends Cubit<OrderState> {
 
   void setPaymentMethod(PaymentMethod paymentMethod) {
     emit(state.copyWith(currentPaymentMethod: paymentMethod));
+  }
+
+  void vnpayPayment({double? price}) {
+    String baseUrl = html.window.location.origin;
+    final paymentUrl = VNPAYFlutter.instance.generatePaymentUrl(
+      url: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
+      version: '2.1.0',
+      tmnCode: Secret.tmnCodeVNPay,
+      txnRef: DateTime.now().millisecondsSinceEpoch.toString(),
+      orderInfo: 'Thanh toan don hang ${Random().nextInt(1000000)}',
+      amount: price ?? 30000,
+      returnUrl: "$baseUrl/#payment_paypal_success",
+      ipAdress: '192.168.1.1',
+      vnpayHashKey: Secret.vnpayHashKey,
+      vnPayHashType: VNPayHashType.HMACSHA512,
+    );
+    VNPAYFlutter.instance.show(
+      paymentUrl: paymentUrl,
+      onPaymentSuccess: (params) {},
+      onPaymentError: (params) {},
+      onWebPaymentComplete: () {},
+    );
   }
 
   Future<void> paypalPayment({double? price}) async {
@@ -95,6 +122,11 @@ class OrderCubit extends Cubit<OrderState> {
         final pre = await SharedPreferences.getInstance();
         await pre.setInt("orderId", res);
         paypalPayment(price: totalPay);
+      } else if (state.currentPaymentMethod!.id == 2) {
+        // emit(state.copyWith(isLoading: false));
+        final pre = await SharedPreferences.getInstance();
+        await pre.setInt("orderId", res);
+        vnpayPayment(price: totalPay);
       } else {
         emit(state.copyWith(isLoading: false, message: "Đặt hàng thành công"));
       }

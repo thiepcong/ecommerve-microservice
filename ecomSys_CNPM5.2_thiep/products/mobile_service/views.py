@@ -8,6 +8,12 @@ from .serializers import ProducerSerializer, TypeSerializer, MobileSerializer, M
 
 class CreateProducerView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = ProducerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -16,6 +22,12 @@ class CreateProducerView(APIView):
 
 class CreateTypeView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = TypeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -24,6 +36,12 @@ class CreateTypeView(APIView):
     
 class AddMobileView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = MobileSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
@@ -57,6 +75,12 @@ class SearchMobileListView(APIView):
 class UpdateMobileView(APIView):
     def put(self, request, mobile_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             mobile = Mobile.objects.get(mobile_id=mobile_id)
         except Mobile.DoesNotExist:
             return Response({'error': 'Mobile not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -69,6 +93,12 @@ class UpdateMobileView(APIView):
 class DeleteProducer(APIView):
     def delete(self, request, producer_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             producer = Producer.objects.get(producer_id=producer_id)
         except Producer.DoesNotExist:
             return Response({'error': 'Producer not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -81,6 +111,12 @@ class DeleteProducer(APIView):
 class DeleteType(APIView):
     def delete(self, request, type_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             type = Type.objects.get(type_id=type_id)
         except Type.DoesNotExist:
             return Response({'error': 'Type not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -93,6 +129,12 @@ class DeleteType(APIView):
 class DeleteMobile(APIView):
     def delete(self, request, mobile_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             mobile = Mobile.objects.get(mobile_id=mobile_id)
         except Mobile.DoesNotExist:
             return Response({'error': 'Mobile not found'}, status=status.HTTP_404_NOT_FOUND)

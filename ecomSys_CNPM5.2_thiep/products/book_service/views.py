@@ -8,6 +8,12 @@ from .serializers import CategorySerializer, BookSerializer, BookInfoSerializer,
 
 class CreateCategoryView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = CategorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -16,6 +22,12 @@ class CreateCategoryView(APIView):
 
 class CreateAuthorView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = AuthorSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -24,6 +36,12 @@ class CreateAuthorView(APIView):
 
 class CreatePublisherView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = PublisherSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -32,6 +50,12 @@ class CreatePublisherView(APIView):
     
 class AddBookView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = BookSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
@@ -40,18 +64,36 @@ class AddBookView(APIView):
 
 class CategoryListView(APIView):
     def get(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         categories = Category.objects.filter(is_active__in=[True]).all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class BookListView(APIView):
     def get(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         books = Book.objects.filter(is_active__in=[True]).all()
         serializer = BookInfoSerializer(books, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class BookListofCategoryView(APIView):
     def get(self, request, category_id):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         books = Book.objects.filter(category_id=category_id, is_active__in=[True])
         serializer = BookInfoSerializer(books, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -65,6 +107,12 @@ class SearchBookListView(APIView):
 class UpdateBookView(APIView):
     def put(self, request, book_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             book = Book.objects.get(book_id=book_id)
         except Book.DoesNotExist:
             return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -77,6 +125,12 @@ class UpdateBookView(APIView):
 class DeleteCategory(APIView):
     def delete(self, request, category_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             category = Category.objects.get(category_id=category_id)
         except Category.DoesNotExist:
             return Response({'error': 'Category not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -89,6 +143,12 @@ class DeleteCategory(APIView):
 class DeleteAuthor(APIView):
     def delete(self, request, author_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             author = Author.objects.get(author_id=author_id)
         except Author.DoesNotExist:
             return Response({'error': 'Author not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -101,6 +161,12 @@ class DeleteAuthor(APIView):
 class DeletePublisher(APIView):
     def delete(self, request, publisher_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             publisher = Publisher.objects.get(publisher_id=publisher_id)
         except Publisher.DoesNotExist:
             return Response({'error': 'Publisher not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -113,6 +179,12 @@ class DeletePublisher(APIView):
 class DeleteBook(APIView):
     def delete(self, request, book_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             book = Book.objects.get(book_id=book_id)
         except Book.DoesNotExist:
             return Response({'error': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)

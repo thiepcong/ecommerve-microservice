@@ -4,8 +4,10 @@ from rest_framework.views import APIView
 
 from user_model.models import User
 from user_model.serializers import UserSerializer
+from rest_framework.permissions import AllowAny
 
 class UserDetailView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, user_id):
         try:
             user = User.objects.get(pk=user_id)

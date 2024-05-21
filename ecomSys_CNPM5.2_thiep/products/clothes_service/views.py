@@ -9,6 +9,12 @@ from clothes_service.serializers import ProducerSerializer, StyleSerializer, Clo
 
 class CreateStyleView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = StyleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -17,6 +23,12 @@ class CreateStyleView(APIView):
     
 class CreateProducerView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = ProducerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -25,6 +37,12 @@ class CreateProducerView(APIView):
 
 class AddClothesView(APIView):
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = ClothesSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
@@ -58,6 +76,12 @@ class SearchClothesListView(APIView):
 class UpdateClothesView(APIView):
     def put(self, request, clothes_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             clothes = Clothes.objects.get(clothes_id=clothes_id)
         except Clothes.DoesNotExist:
             return Response({'error': 'Clothes not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -70,6 +94,12 @@ class UpdateClothesView(APIView):
 class DeleteStyle(APIView):
     def delete(self, request, style_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             style = Style.objects.get(style_id=style_id)
         except Style.DoesNotExist:
             return Response({'error': 'Style not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -82,6 +112,12 @@ class DeleteStyle(APIView):
 class DeleteProducer(APIView):
     def delete(self, request, producer_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             producer = Producer.objects.get(producer_id=producer_id)
         except Producer.DoesNotExist:
             return Response({'error': 'Producer not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -94,6 +130,12 @@ class DeleteProducer(APIView):
 class DeleteClothes(APIView):
     def delete(self, request, clothes_id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             clothes = Clothes.objects.get(clothes_id=clothes_id)
         except Clothes.DoesNotExist:
             return Response({'error': 'Clothes not found'}, status=status.HTTP_404_NOT_FOUND)

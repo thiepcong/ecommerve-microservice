@@ -4,8 +4,10 @@ from rest_framework.views import APIView
 from django.contrib.auth.hashers import make_password, check_password
 from user_model.models import User, Account
 from user_model.serializers import FullNameSerializer, AddressSerializer, AccountSerializer, UserSerializer
+from rest_framework.permissions import AllowAny
 
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         data = request.data
         full_name_serializer = FullNameSerializer(data=data['full_name'])
@@ -44,6 +46,7 @@ class RegisterView(APIView):
         }, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         data = request.data
         try:

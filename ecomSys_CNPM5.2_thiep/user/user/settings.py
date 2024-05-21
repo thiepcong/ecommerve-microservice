@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-w4*y!p#ooswv7xu+t8x#g72q&3o)gt6r!z8nk@ghx)^f8o=$3e'
+REFRESH_TOKEN_SECRET = 'hong'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 PORT = 4001
 
-
+AUTH_USER_MODEL = 'manager_service.Manager'
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'user_info',
     'user_model',
     'user_login',
+    'manager_service',
 ]
 
 MIDDLEWARE = [
@@ -140,14 +142,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'http://localhost:3000' # the domain for front-end app(you can add more than 1)
 # ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'user_service.authentication.SafeJWTAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'manager_service.authentication.SafeJWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 
 

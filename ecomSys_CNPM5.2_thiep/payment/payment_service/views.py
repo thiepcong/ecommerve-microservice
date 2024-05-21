@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.conf import settings
 from payment_service.models import Payment, PaymentMethod
 from payment_service.serializer import PaymentMethodSerializer, PaymentSerializer
+import requests
 
 class PaymentMethodView(APIView):
     def get(self, request):
@@ -15,6 +16,12 @@ class PaymentMethodView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
      
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = PaymentMethodSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -23,6 +30,12 @@ class PaymentMethodView(APIView):
    
     def delete(self, request, id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             payment_method = PaymentMethod.objects.get(pk=id)
         except PaymentMethod.DoesNotExist:
             return Response({'error': 'PaymentMethod not found'}, status=status.HTTP_404_NOT_FOUND)

@@ -5,8 +5,10 @@ from rest_framework.views import APIView
 from django.contrib.auth.hashers import make_password, check_password
 from user_model.models import User
 from user_model.serializers import UserSerializer, AddressSerializer, FullNameSerializer 
+from rest_framework.permissions import AllowAny
 
 class ChangePasswordView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request, user_id):
         data = request.data
         try:
@@ -21,6 +23,7 @@ class ChangePasswordView(APIView):
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class ChangeProfileView(APIView):
+    permission_classes = [AllowAny]
     def put(self, request, user_id):
         data = request.data
         try:

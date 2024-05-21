@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+import requests
 from shipment_service.models import Carriers, Shipment, ShipmentInfo, Transaction
 from shipment_service.serializers import CarriersSerializer, ShipmentInfoSerializer, ShipmentSerializer, TransactionSerializer
 
@@ -76,6 +76,12 @@ class CarriersView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
+        token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+        headers = {'Authorization': request.headers.get('Authorization')}
+        response = requests.get(token_verification_url, headers=headers)
+        
+        if response.status_code != 200:
+            return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
         serializer = CarriersSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -84,6 +90,12 @@ class CarriersView(APIView):
     
     def put(self, request, id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             carrier = Carriers.objects.get(pk=id)
         except Carriers.DoesNotExist:
             return Response({'error': 'Carrier not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -95,6 +107,12 @@ class CarriersView(APIView):
 
     def delete(self, request, id):
         try:
+            token_verification_url = "http://localhost:4001/api/ecomSys/manager/verify-token/"
+            headers = {'Authorization': request.headers.get('Authorization')}
+            response = requests.get(token_verification_url, headers=headers)
+            
+            if response.status_code != 200:
+                return Response({'error': 'Invalid token.'}, status=status.HTTP_401_UNAUTHORIZED)
             carrier = Carriers.objects.get(pk=id)
         except Carriers.DoesNotExist:
             return Response({'error': 'Carrier not found'}, status=status.HTTP_404_NOT_FOUND)
