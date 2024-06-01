@@ -38,6 +38,10 @@ class ApiUrlConstants {
   static String getOrderByUser(String userId) =>
       '$baseUrl:4005/api/ecomSys/order/$userId/';
 
+  static String paymentSuccessOrder(
+          int orderId, String userId, String productId) =>
+      '$baseUrl:4005/api/ecomSys/order/paymentsucess/$orderId/$userId/$productId/';
+
   static String confirmOrder(int orderId) =>
       '$baseUrl:4005/api/ecomSys/order/confirm/$orderId/';
 

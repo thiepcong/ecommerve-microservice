@@ -32,8 +32,8 @@ class OrderItem extends StatelessWidget {
             item.isCancel
                 ? "ĐÃ HUỶ"
                 : item.status
-                    ? "HOÀN THÀNH"
-                    : "CHƯA HOÀN THÀNH",
+                    ? "ĐÃ THANH TOÁN"
+                    : "CHƯA THANH TOÁN",
             style: TextStyles.regularWhiteS20.copyWith(
                 color: item.isCancel
                     ? AppColors.colorFF000000

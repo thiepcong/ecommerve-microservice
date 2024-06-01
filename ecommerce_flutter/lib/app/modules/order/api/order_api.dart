@@ -69,6 +69,8 @@ class OrderApi extends BaseRemoteSource {
       },
     });
     try {
+      final pre = await SharedPreferences.getInstance();
+      await pre.setString("productId", carts.first.product.id);
       return callApiWithErrorParser(request).then((value) => value.data['id']);
     } catch (e) {
       rethrow;

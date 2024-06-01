@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from order_service.views import AddOrderView, AllOrderView, CancelOrderView, ConfirmOrderView, OrderDetailView
+from order_service.views import AddOrderView, AllOrderView, CancelOrderView, ConfirmOrderView, OrderDetailView, UpdatePaymentOrderView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('api/ecomSys/order/all/', AllOrderView.as_view()),
     path('api/ecomSys/order/<str:user_id>/', OrderDetailView.as_view()),
     path('api/ecomSys/order/confirm/<str:order_id>/', ConfirmOrderView.as_view()),
+    path('api/ecomSys/order/paymentsucess/<str:order_id>/<str:user_id>/<str:product_id>/', UpdatePaymentOrderView.as_view()),
     path('api/ecomSys/order/cancel/<str:order_id>/', CancelOrderView.as_view()),
 ]

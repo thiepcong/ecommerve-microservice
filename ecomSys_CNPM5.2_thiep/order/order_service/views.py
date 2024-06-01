@@ -142,6 +142,18 @@ class AllOrderView(APIView):
             return response.json()
         return None
         
+class UpdatePaymentOrderView(APIView):
+    def put(self, request, order_id, user_id, product_id):
+        try:
+            order = Order.objects.get(pk=order_id)
+            order.status = True 
+            user_url = "http://localhost:4004/api/ecomSys/cart/delete/{}/{}/".format(user_id, product_id)
+            requests.delete(user_url)
+            order.save()
+            return Response({'message': 'Order status updated successfully.'}, status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response({'message': 'Order not found.'}, status=status.HTTP_404_NOT_FOUND)
+
 class ConfirmOrderView(APIView):
     def put(self, request, order_id):
         try:

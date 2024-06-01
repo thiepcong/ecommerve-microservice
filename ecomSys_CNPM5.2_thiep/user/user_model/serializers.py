@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import FullName, Account, Address, User
+from .validators import validate_password
 
 class FullNameSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,10 +8,11 @@ class FullNameSerializer(serializers.ModelSerializer):
         fields = ['fname', 'lname']
 
 class AccountSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, validators=[validate_password])
     class Meta:
         model = Account
         fields = ['email', 'password']
-
+ 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
